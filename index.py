@@ -29,7 +29,7 @@ class Application(tornado.web.Application):
         )
 
         handlers = [
-            (r"/", app.controller.default.HomeHandler),
+            (r"/", app.controller.HomeHandler),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
 
