@@ -63,8 +63,13 @@
 }
 
 #footer {
-    margin: 0 60px;
-    color: #999;
+    margin-top: 60px;
+    padding-bottom: 50px;
+    height: 38px;
+    line-height: 38px;
+    border-top: 2px solid #CCC;
+    color: #737573;
+    text-align: center;
 }
 
 #footer a {
