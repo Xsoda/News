@@ -8,6 +8,8 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
+import tornado.autoreload
+import app.controller.default
 
 from tornado.options import define, options
 
@@ -15,21 +17,21 @@ define("port", default=9000, help="run on the given port", type=int)
 define("pg_host", default="127.0.0.1:5432", help="database host")
 define("pg_database", default="news", help="database name")
 define("pg_user", default="postgres", help="database user")
-define("pg_password", default="xxxxxxxx", help="database password")
+define("pg_password", default="1989ii24", help="database password")
 
 class Application(tornado.web.Application):
     def __init__(self):
         settings = dict(
-            title = "PPTMNews",
-            template_path = os.path.join(os.path.dirname(__file__), "view/"),
-            static_path = os.path.join(os.path.dirname(__file__), "static/"),
+            title = "PPTM News",
+            template_path = os.path.join(os.path.dirname(__file__), "app/view/"),
+            static_path = os.path.join(os.path.dirname(__file__), "app/static/"),
             xsrf_cookies = True,
-            cookie_secret = "/Vo=",
+            cookie_secret = "760f802ae2ea1ca7120b1fee4e9aa16e3ea53698/Vo=",
             login_url = "/auth/login",
         )
 
         handlers = [
-            (r"/", app.controller.HomeHandler),
+            (r"/", app.controller.default.HomeHandler),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
 
@@ -37,14 +39,13 @@ class Application(tornado.web.Application):
             host = options.pg_host, database = options.pg_database,
             user = options.pg_user, password = options.pg_password)
 
-class BaseHandler(tornado.web.RequestHandler):
-    @property
-    def db(self):
-        return self.application.db
-
-    def get_current_user(self):
-        user_id = self.get_current_user("user")
-        if not user_id:
-            return None
-        return self.db.get("select * from usr where id = %s", int(user_id))
-
+def main():
+    tornado.options.parse_command_line()
+    http_server = tornado.httpserver.HTTPServer(Application())
+    http_server.listen(options.port)
+    io_loop = tornado.ioloop.IOLoop.instance()
+    tornado.autoreload.start(io_loop=io_loop, check_time=500)
+    io_loop.start()
+    
+if __name__ == "__main__":
+    main()
