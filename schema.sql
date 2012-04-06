@@ -41,7 +41,8 @@ create index ix_news_category_1 on news(categoryId);
 create sequence comment_id_seq;
 create table comment( -- 用户评论表
        id bigint not null default nextval('comment_id_seq'), -- Id
-       author bigint not null, -- 作者Id
+       authorId bigint not null,  -- 用户编号，非注册用户为0,所以不需要为该字段建立外键
+       author varchar(255) not null, -- 评论人姓名
        newsId bigint not null, -- 新闻Id
        content varchar(512) not null, -- 评论内容
        postedAt timestamp not null, -- 评论时间
@@ -50,11 +51,11 @@ create table comment( -- 用户评论表
        constraint pk_comment primary key (id)
 );
 alter sequence comment_id_seq owned by comment.id;
-alter table comment add constraint fk_comment_usr_1 foreign key (author) references usr(id) on delete restrict on update restrict;
+-- alter table comment add constraint fk_comment_usr_1 foreign key (authorId) references usr(id) on delete restrict on update restrict;
 alter table comment add constraint fk_comment_news_1 foreign key (newsId) references news(id) on delete restrict on update restrict;
 alter table comment add constraint fk_comment_comment_1 foreign key (commentId) references comment(id) on delete restrict on update restrict;
 alter table comment add constraint fk_comment_comment_2 foreign key (postId) references comment(id) on delete restrict on update restrict;
-create index ix_comment_usr_1 on comment(author);
+create index ix_comment_usr_1 on comment(authorId);
 create index ix_comment_news_1 on comment(newsId);
 
 create sequence tag_id_seq;
