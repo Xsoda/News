@@ -39,6 +39,7 @@
   <ItemGroup>
     <Content Include="app\view\base.html" />
     <Content Include="app\view\index.html" />
+    <Content Include="app\view\test.html" />
     <Content Include="Readme.org" />
     <Content Include="schema.sql" />
   </ItemGroup>

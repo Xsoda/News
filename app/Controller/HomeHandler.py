@@ -5,4 +5,4 @@ from app.controller.Base import BaseHandler
 
 class HomeHandler(BaseHandler):
     def get(self):
-        self.write(self.serve_template("index.html"))
+        self.write(self.serve_template("test.html",**{'name':'Xsoda'}))

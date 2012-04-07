@@ -2,6 +2,7 @@
 from tornado.options import define, options
 from mako.template import Template
 from mako.lookup import TemplateLookup
+from mako.exceptions import RichTraceback
 
 class BaseHandler(tornado.web.RequestHandler):
     @property
@@ -36,10 +37,18 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.lookup
 
     def serve_template(self, template_name, **kwargs):
-        if self.template_exists(template_name):
-            template = self._template_exists_cache[template_name]
-            return template.render(**kwargs)
-        else:
-            lookup = self._get_template_lookup()
-            template = lookup.get_template(template_name)
-            return template.render(**kwargs)
+        try:
+            if self.template_exists(template_name):
+               template = self._template_exists_cache[template_name]
+               return template.render(**kwargs)
+            else:
+              lookup = self._get_template_lookup()
+              template = lookup.get_template(template_name)
+              return template.render(**kwargs)
+        except:
+            traceback = RichTraceback()
+            for (filename, lineno, function, line) in traceback.traceback:
+                print("File %s, line %s, in %s" % (filename, lineno, function))
+                print(line, "\n")
+            print("%s: %s" % (str(traceback.error.__class__.__name__), traceback.error))
+                  
