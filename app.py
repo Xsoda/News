@@ -9,7 +9,8 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 import tornado.autoreload
-import app.controller.default
+import app.controller
+from app.controller import * 
 
 from tornado.options import define, options
 
@@ -18,6 +19,8 @@ define("pg_host", default="127.0.0.1:5432", help="database host")
 define("pg_database", default="news", help="database name")
 define("pg_user", default="postgres", help="database user")
 define("pg_password", default="1989ii24", help="database password")
+define("template_directory", default="app/view", help="default mako template directory")
+define("mako_moudle_dir", default="app/view/mako_moudle", help="default mako complie template directory")
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -31,7 +34,7 @@ class Application(tornado.web.Application):
         )
 
         handlers = [
-            (r"/", app.controller.default.HomeHandler),
+            (r"/", app.controller.HomeHandler.HomeHandler),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
 

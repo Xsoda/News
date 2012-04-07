@@ -24,10 +24,8 @@
   <ItemGroup>
     <Compile Include="app.py" />
     <Compile Include="app\controller\Base.py" />
-    <Compile Include="app\controller\default.py" />
+    <Compile Include="app\controller\HomeHandler.py" />
     <Compile Include="app\controller\__init__.py" />
-    <Compile Include="app\view\mako_modules\base.html.py" />
-    <Compile Include="app\view\mako_modules\index.html.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="core\db\database.py" />
     <Compile Include="core\db\__init__.py" />
@@ -39,6 +37,8 @@
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\view\base.html" />
+    <Content Include="app\view\index.html" />
     <Content Include="Readme.org" />
     <Content Include="schema.sql" />
   </ItemGroup>
@@ -129,8 +129,6 @@
     <Folder Include="app\static\javascripts\" />
     <Folder Include="app\static\stylesheets\" />
     <Folder Include="app\view\" />
-    <Folder Include="app\view\mako_modules\" />
-    <Folder Include="app\view\mako_modules\__pycache__\" />
     <Folder Include="app\__pycache__\" />
     <Folder Include="core\" />
     <Folder Include="core\db\" />
