@@ -19,7 +19,7 @@ create table category( -- 新闻分类表
        constraint pk_category primary key (id)
 );
 alter sequence category_id_seq owned by category.id;
-alter table category add constraint fk_category_category_1 foreign key (parentId) references  category(id) on delete restrict on update restrict;
+--alter table category add constraint fk_category_category_1 foreign key (parentId) references  category(id) on delete restrict on update restrict;
 
 create sequence news_id_seq start 1;
 create table news( -- 新闻表
@@ -53,8 +53,8 @@ create table comment( -- 用户评论表
 alter sequence comment_id_seq owned by comment.id;
 -- alter table comment add constraint fk_comment_usr_1 foreign key (authorId) references usr(id) on delete restrict on update restrict;
 alter table comment add constraint fk_comment_news_1 foreign key (newsId) references news(id) on delete restrict on update restrict;
-alter table comment add constraint fk_comment_comment_1 foreign key (commentId) references comment(id) on delete restrict on update restrict;
-alter table comment add constraint fk_comment_comment_2 foreign key (postId) references comment(id) on delete restrict on update restrict;
+--alter table comment add constraint fk_comment_comment_1 foreign key (commentId) references comment(id) on delete restrict on update restrict;
+--alter table comment add constraint fk_comment_comment_2 foreign key (postId) references comment(id) on delete restrict on update restrict;
 create index ix_comment_usr_1 on comment(authorId);
 create index ix_comment_news_1 on comment(newsId);
 
@@ -78,6 +78,22 @@ alter table newstag add constraint fk_newstag_news_1 foreign key (newsId) refere
 alter table newstag add constraint fk_newstag_tag_1 foreign key (tagId) references tag(id) on delete restrict on update restrict;
 create index ix_newstag_news_1 on newstag(newsId);
 create index ix_newstag_tag_1 on newstag(tagId);
+
+-- Add Data !
+insert into category(id, name, parentId) values(100, "国内", 0);
+insert into category(id, name, parentId) values(101, "国际", 0);
+insert into category(id, name, parentId) values(102, "社会", 0);
+insert into category(id, name, parentId) values(103, "评论", 0);
+insert into category(id, name, parentId) values(104, "深度", 0);
+insert into category(id, name, parentId) values(105, "军事", 0);
+insert into category(id, name, parentId) values(106, "历史", 0);
+insert into category(id, name, parentId) values(107, "探索", 0);
+insert into category(id, name, parentId) values(108, "图片", 0);
+insert into category(id, name, parentId) values(109, "博客", 0);
+insert into category(id, name, parentId) values(110, "论坛", 0);
+insert into category(id, name, parentId) values(111, "公益", 0);
+insert into category(id, name, parentId) values(112, "媒体", 0);
+
 -- Down !
 drop table usr if exists usr;
 drop table news if exists news;
