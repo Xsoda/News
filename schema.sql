@@ -93,7 +93,28 @@ insert into category(id, name, parentId) values(109, "博客", 0);
 insert into category(id, name, parentId) values(110, "论坛", 0);
 insert into category(id, name, parentId) values(111, "公益", 0);
 insert into category(id, name, parentId) values(112, "媒体", 0);
-
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
+-- insert into
 -- Down !
 drop table usr if exists usr;
 drop table news if exists news;
