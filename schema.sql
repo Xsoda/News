@@ -80,19 +80,19 @@ create index ix_newstag_news_1 on newstag(newsId);
 create index ix_newstag_tag_1 on newstag(tagId);
 
 -- Add Data !
-insert into category(id, name, parentId) values(100, "国内", 0);
-insert into category(id, name, parentId) values(101, "国际", 0);
-insert into category(id, name, parentId) values(102, "社会", 0);
-insert into category(id, name, parentId) values(103, "评论", 0);
-insert into category(id, name, parentId) values(104, "深度", 0);
-insert into category(id, name, parentId) values(105, "军事", 0);
-insert into category(id, name, parentId) values(106, "历史", 0);
-insert into category(id, name, parentId) values(107, "探索", 0);
-insert into category(id, name, parentId) values(108, "图片", 0);
-insert into category(id, name, parentId) values(109, "博客", 0);
-insert into category(id, name, parentId) values(110, "论坛", 0);
-insert into category(id, name, parentId) values(111, "公益", 0);
-insert into category(id, name, parentId) values(112, "媒体", 0);
+insert into category(id, name, parentId) values(100, '国内', 0);
+insert into category(id, name, parentId) values(101, '国际', 0);
+insert into category(id, name, parentId) values(102, '社会', 0);
+insert into category(id, name, parentId) values(103, '评论', 0);
+insert into category(id, name, parentId) values(104, '深度', 0);
+insert into category(id, name, parentId) values(105, '军事', 0);
+insert into category(id, name, parentId) values(106, '历史', 0);
+insert into category(id, name, parentId) values(107, '探索', 0);
+insert into category(id, name, parentId) values(108, '图片', 0);
+insert into category(id, name, parentId) values(109, '博客', 0);
+insert into category(id, name, parentId) values(110, '论坛', 0);
+insert into category(id, name, parentId) values(111, '公益', 0);
+insert into category(id, name, parentId) values(112, '媒体', 0);
 -- insert into
 -- insert into
 -- insert into

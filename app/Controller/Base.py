@@ -37,6 +37,7 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.lookup
 
     def serve_template(self, template_name, **kwargs):
+        print(kwargs)
         try:
             if self.template_exists(template_name):
                template = self._template_exists_cache[template_name]

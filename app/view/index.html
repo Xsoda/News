@@ -5,31 +5,28 @@ PPTM News
 </%block>
 
 <%block name="header">
-<h1>PPTM News</h1>
-<div id="menu-navi" class="clearfix">
-   <div class="menu-container">
-     <ul class="sf-menu">
-       <li><a href='/'>首页</a></li>
-       <li><a href='/'>代码</a></li>
-       <li><a href='/'>讨论</a></li>
-          <li><a href="#">下载</a>
-    <ul>
-           <li><a href="">模版</a></li>
-           <li><a href="">插件</a></li>
-         </ul> 
-       </li>
-        <li><a href="">博客</a></li>
-       <li><a href="#">联系</a>
-    <ul>
-           <li><a href="pay.html">支付</a></li>
-           <li><a href="service.html">关于</a></li>
-         </ul> 
-       </li>
-     <li><a href="">留言</a></li>
-     </ul>
-   </div>
- </div>
-</%block>
-<div class="box">
-This is a body.
+<div id="head">
+  <img src="../static/images/logo.gif">
 </div>
+</%block>
+
+<%block name="current_position">
+${position}
+</%block>
+
+<h1>${position}</h1>
+%if newses:
+%for news in newses:
+<div id="news_${news['id']}" class="comments_list">
+  [${news['category']}]&nbsp;${news['title']} <lable style="float:right; color: #666;">@${news['postedat']} By ${news['author']}</lable>
+</div>
+%endfor
+%endif
+
+<script type="text/javascript">
+  $(document).ready(function(){
+  $("div.comments_list").click(function(){
+  open($(this).attr("id"));
+  });
+  });
+</script>

@@ -1,0 +1,32 @@
+﻿<%inherit file="base.html"/>
+
+<%block name="title">
+PPTM News
+</%block>
+
+<%block name="header">
+<div id="head">
+  <img src="../static/images/logo.gif">
+</div>
+</%block>
+%if news:
+<%block name="current_position">
+${news['category']}&nbsp;&gt;&nbsp;${news['title']}
+</%block>
+
+<h1>${news['title']}</h1>
+
+<div class="comments_list" style="color: #666;text-align:center;">
+  发布时间: ${news['postedat']}   |    编辑: ${news['author']}
+</div>
+
+<div class="comments_list">
+  ${news['content']}
+</div>
+%else:
+
+<div class="comments_lsit" style="color: red;">
+ <h1>404</h1>
+</div>
+%endif
+

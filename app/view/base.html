@@ -3,14 +3,22 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title><%block name="title"/></title>
-    <link rel="stylesheet" href="../static/stylesheets/main.css" type="text/css" />
-    <script type="text/javascript" src="../static/javascript/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" href="../static/stylesheets/css.css" type="text/css" />
+    <script type="text/javascript" src="../static/javascripts/jquery-1.7.2.min.js"></script>
     <%block name="jsfile"/>
   </head>
   <body>
-    <div class="page">
+    <div style="margin:auto; width: 800px">
+    <%include file="./nav.html"/>
     <%block name="header"/>
+    <div id="page">
+      当前位置: <%block name="current_position" />
+      <div id="content">
+        <span class="content_post_top"></span>
     ${self.body()}
+        <span class="content_post_bottom"></span>
+      </div>
+    </div>
     <div id="footer">
      <p>&#169; Powered by Xsoda</p>
     </div>

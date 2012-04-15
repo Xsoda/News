@@ -1,0 +1,63 @@
+﻿<%inherit file="base.html"/>
+
+<%block name="title">
+PPTM News
+</%block>
+
+<%block name="header">
+<div id="head">
+  <img src="../static/images/logo.gif">
+</div>
+</%block>
+
+<%block name="current_position">
+${position}
+</%block>
+
+<h1>${position}新闻</h1>
+%if newses:
+<div id="news">
+%for news in newses:
+<div id="news_${news['id']}" class="comments_list">
+  [${news['category']}]&nbsp;${news['title']} <lable style="float:right; color: #666;">@${news['postedat']} By ${news['author']}</lable>
+</div>
+%endfor
+</div>
+%if pages > 1:
+<div class="comments_list">
+  <ul class="pager">
+    %if page is not 1:
+    <li class="page prev">
+      <a href="/category_${categoryid}_${page - 1}">&lt;</a>
+    </li>
+    %endif
+    <li class="page <%'current' if page is 1 else ''%>">
+      <a href="/category_${categoryid}_1">1</a>
+    </li>
+    %for p in range(page-3 if page >= 5 else 2, page + 11 if pages + 1 <= page + 11 else pages + 1):
+    <li class="page <%'current' if page==p else ''%>">
+      <a href="/category_${categoryid}_{p}">${p}</a>
+    </li>
+    %endfor
+    %if page - 3 + 8 < pages:
+        <li class="page">
+          <a href="/category_${categoryid}_${pages}">${pages}</a>
+        </li>
+   %endif
+   %if page is not pages:
+        <li class="page next">
+          <a href="/category_${categoryid}_${page + 1}">&gt;</a>
+        </li>
+  %endif
+  </ul>
+</div>
+%endif
+%endif
+
+<script type="text/javascript">
+  $(document).ready(function(){
+  $("div#news>div.comments_list").click(function(){
+  open($(this).attr("id"));
+  });
+  });
+</script>

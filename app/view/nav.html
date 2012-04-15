@@ -1,0 +1,9 @@
+<div id="nav">
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $.get("/data/getCategory", function(html) {
+          $("#nav").append(html);
+      })
+  })
+</script>
