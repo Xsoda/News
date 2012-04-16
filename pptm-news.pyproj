@@ -24,7 +24,10 @@
   <ItemGroup>
     <Compile Include="app.py" />
     <Compile Include="app\controller\Base.py" />
+    <Compile Include="app\controller\CategoryHandler.py" />
+    <Compile Include="app\controller\CommentHandler.py" />
     <Compile Include="app\controller\HomeHandler.py" />
+    <Compile Include="app\controller\NewsHandler.py" />
     <Compile Include="app\controller\__init__.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="core\db\database.py" />
@@ -38,8 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\view\base.html" />
+    <Content Include="app\view\comment.html" />
     <Content Include="app\view\index.html" />
-    <Content Include="app\view\test.html" />
+    <Content Include="app\view\nav.html" />
+    <Content Include="app\view\news.html" />
+    <Content Include="app\view\newslist.html" />
+    <Content Include="app\view\pagination.html" />
     <Content Include="Readme.org" />
     <Content Include="schema.sql" />
   </ItemGroup>
