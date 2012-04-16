@@ -18,7 +18,7 @@ ${position}
 %if newses:
 %for news in newses:
 <div id="news_${news['id']}" class="comments_list">
-  [${news['category']}]&nbsp;${news['title']} <lable style="float:right; color: #666;">@${news['postedat']} By ${news['author']}</lable>
+  [${news['category']}]&nbsp;${news['title']} <lable style="float:right; color: #666;">${news['commentnum']}评论 @${news['postedat']} By ${news['author']}</lable>
 </div>
 %endfor
 %endif

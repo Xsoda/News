@@ -17,16 +17,29 @@ ${news['category']}&nbsp;&gt;&nbsp;${news['title']}
 <h1>${news['title']}</h1>
 
 <div class="comments_list" style="color: #666;text-align:center;">
-  发布时间: ${news['postedat']}   |    编辑: ${news['author']}
+  发布时间: ${news['postedat']}   |    编辑: ${news['author']}    |    评论:
+  %if news['commentnum']:
+  ${news['commentnum']}
+  %else:
+  0
+  %endif
 </div>
 
 <div class="comments_list">
   ${news['content']}
 </div>
-%else:
 
+<div class="comments_list">
+ <strong>
+   %if news['commentnum']:
+   <a href="/comment_${news['id']}_1">${news['commentnum']} 位网友发表了自己的评论, 点击查看评论.</a>
+   %else:
+   暂时还没有网友对此评论.
+   %endif
+ </strong>
+</div>
+%else:
 <div class="comments_lsit" style="color: red;">
  <h1>404</h1>
 </div>
 %endif
-

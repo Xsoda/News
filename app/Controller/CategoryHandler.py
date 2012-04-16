@@ -1,8 +1,14 @@
 # *_* coding: utf-8 *_*
 
 from app.controller.Base import BaseHandler
-printnum = lambda x: str(x) + 'st' if int(x)%10==1 else 'nd' if int(x)%10==2 else 'rd' if int(x)%10==3 else 'th'
-
+def printnum(num):
+    postfix = ('st', 'nd', 'rd')
+    try:
+        ret = postfix[(int(num) - 1) % 10]
+    except Exception:
+        ret = 'th'
+    finally:
+        return str(num) + ret
 
 class GetCategory(BaseHandler):
     def get(self):
@@ -11,10 +17,10 @@ class GetCategory(BaseHandler):
         self.write(''.join(html))
 
 class CategoryNews(BaseHandler):
-    def get(self, id, page=1):
+    def get(self, id, pageth=1):
         pages = self.db.get("select count(*) from news where news.categoryid=%s;" % id)
-        newses = self.db.query("select news.id, news.title, news.postedat, usr.name as author, category.name as category from news left join usr on news.author=usr.id left join category on news.categoryid=category.id where news.categoryid=%s order by news.postedat desc limit 20 offset %d;" % (id, (int(page) - 1) * 20))
+        newses = self.db.query("select news.id, news.title, news.postedat, news.commentnum, usr.name as author, category.name as category from news left join usr on news.author=usr.id left join category on news.categoryid=category.id where news.categoryid=%s order by news.postedat desc limit 20 offset %d;" % (id, (int(pageth) - 1) * 20))
         if newses:
-            self.write(self.serve_template("newslist.html", **{'newses': newses, 'position': newses[0]['category'], 'pages': (int(pages['count']) + 20) // 20, 'page':page, 'category': id}))
+            self.write(self.serve_template("newslist.html", **{'newses': newses, 'position': newses[0]['category'], 'pages': (int(pages['count']) + 20) // 20, 'page':pageth, 'category': id}))
         else:
-            self.write("get {id} category and {page} page error.".format(**{'id': printnum(id), 'page': printnum(page)}))
+            self.write("get {id} category and {page} page error.".format(**{'id': printnum(id), 'page': printnum(pageth)}))

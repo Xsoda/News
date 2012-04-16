@@ -36,6 +36,7 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/", app.controller.HomeHandler.HomeHandler),
             (r"/news_(\d+)", app.controller.NewsHandler.ShowNews), # news_(新闻编号)
+            (r"/news_(\d+)_comments_(\d+)", app.controller.CommentHandler.ShowComments), # news_(新闻编号)_comments_(页码)
             (r"/category_(\d+)_(\d+)", app.controller.CategoryHandler.CategoryNews), # category_(分类编号)_(页码)
             (r"/data/getCategory", app.controller.CategoryHandler.GetCategory),
         ]

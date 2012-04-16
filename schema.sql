@@ -30,6 +30,7 @@ create table news( -- 新闻表
        source varchar(255) null, -- 来源
        author bigint not null, -- 编辑
        postedAt timestamp not null, -- 发布日期
+       commentNum bigint not null, -- 评论数
        constraint pk_news primary key (id)
 );
 alter sequence news_id_seq owned by news.id;
