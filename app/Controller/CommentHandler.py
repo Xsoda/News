@@ -2,7 +2,6 @@
 __author__ = 'Xsoda'
 
 from app.controller.Base import BaseHandler
-import copy
 
 def getCommentById(comments, cid, id):
     for comment in comments:
@@ -20,16 +19,16 @@ def parse(comment, comments):
     html.append('''<span>{author}</span><br />{content}</div>'''.format(**{'author': comment['name'], 'content': comment['content']}))
     return ''.join(html)
 
-def parseCommentsToHtml(comments):
+def parseCommentsToHtml(comments, pageth):
     html = []
-    for comment in comments:
+    for comment in comments[(int(pageth) - 1) * 20 : int(pageth) * 20 + 1]:
         html.append('''<div class="comment"><p class="title"><span>{time}</span>{author}</p>'''.format(**{'time': comment['postedat'], 'author': comment['name']}))
         if comment['commentid'] != 0:
             html.append(parse(comment, comments))
         html.append("<p>{content}</p></div>".format(**{'content': comment['content']}))
     return ''.join(html)
 
-class ShowComments(BaseHandler):
+class GetComments(BaseHandler):
     # `<div id="commentHolder">
     # `  ..............
     # `  <div class="comment">
@@ -50,20 +49,13 @@ class ShowComments(BaseHandler):
     # `</div>
     
     def get(self, newsid, pageth):
-        comments = self.db.query("select comment.id, comment.content, comment.postedat, comment.commentid, usr.email, usr.name from comment left join usr on comment.authorid=usr.id where comment.newsid=%s order by comment.postedat asc;" % newsid)
-        if comments:
-            print(comments)
-            self.write(parseCommentsToHtml(comments) + '''<style type="text/css">
-*{margin:0;padding:0;}
-body{margin:10px;font-size:14px;font-family:宋体}
-h1{font-size:26px;margin:10px 0 15px;}
-#commentHolder{width:540px;border-bottom:1px solid #aaa;}
-.comment{padding:5px 8px;background:#f8fcff;border:1px solid #aaa;font-size:14px;border-bottom:none;}
-.comment p{padding:5px 0;}
-.comment p.title{color:#1f3a87;font-size:12px;}
-.comment p span{float:right;color:#666}
-.comment div{background:#ffe;padding:3px;border:1px solid #aaa;line-height:140%;margin-bottom:5px;}
-.comment div span{color:#1f3a87;font-size:12px;}
-</style>''')
+        comments = self.db.query("select comment.id, comment.content, comment.postedat, comment.commentid, usr.email, usr.name from comment left join usr on comment.authorid=usr.id where comment.newsid=%s order by comment.postedat desc;" % newsid)
+        if comments and int(pageth) * 20 > len(comments):
+            self.write(parseCommentsToHtml(comments, pageth))
         else:
             self.write('error')
+
+class ShowComments(BaseHandler):
+    def get(self, id):
+        newsinfo = self.db.get("select news.id, news.title, news.postedat, news.commentnum, category.name as category, usr.name as author from news left join category on news.categoryid=category.id left join usr on news.author=usr.id where news.id=%s;" % id)
+        self.write(self.serve_template('comment.html', **{'newsinfo': newsinfo}))

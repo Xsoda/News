@@ -1,4 +1,4 @@
-﻿<%inherit file="base.html"/>
+<%inherit file="base.html"/>
 <style type="text/css">
   * { margin: 0; padding: 0; }
   body { margin: 10px; font-size: 14px; font-family: 宋体; }
@@ -20,37 +20,28 @@ PPTM News
   <img src="../static/images/logo.gif">
 </div>
 </%block>
-%if news:
+%if newsinfo:
 <%block name="current_position">
-${news['category']}&nbsp;&gt;&nbsp;${news['title']}
+${newsinfo['category']}&nbsp;&gt;&nbsp;${newsinfo['title']}&nbsp;&gt;&nbsp;评论
 </%block>
 
-<h1>${news['title']}</h1>
+<strong>评论: </strong><h1>${newsinfo['title']}</h1>
 
 <div class="comments_list" style="color: #666;text-align:center;">
-  发布时间: ${news['postedat']}   |    编辑: ${news['author']}    |    评论:
-  %if news['commentnum']:
-  ${news['commentnum']}
+  发布时间: ${newsinfo['postedat']}   |    编辑: ${newsinfo['author']}    |    评论:
+  %if newsinfo['commentnum']:
+  ${newsinfo['commentnum']}
   %else:
   0
   %endif
 </div>
-
-<div class="comments_list">
-  ${news['content']}
-</div>
-
-<div class="comments_list">
- <strong>
-   %if news['commentnum']:
-   <a href="/comment_${news['id']}_1">${news['commentnum']} 位网友发表了自己的评论, 点击查看评论.</a>
-   %else:
-   暂时还没有网友对此评论.
-   %endif
- </strong>
-</div>
-%else:
-<div class="comments_lsit" style="color: red;">
- <h1>404</h1>
+<div id="commentsHolder">
 </div>
 %endif
+<script type="text/javascript">
+  $(document).ready(function () {
+  $.get("/data/getComments_${newsinfo['id']}_1", function (html) {
+  $("div#commentsHolder").append(html);
+  })
+  })
+</script>

@@ -34,11 +34,13 @@ class Application(tornado.web.Application):
         )
 
         handlers = [
-            (r"/", app.controller.HomeHandler.HomeHandler),
-            (r"/news_(\d+)", app.controller.NewsHandler.ShowNews), # news_(新闻编号)
-            (r"/news_(\d+)_comments_(\d+)", app.controller.CommentHandler.ShowComments), # news_(新闻编号)_comments_(页码)
-            (r"/category_(\d+)_(\d+)", app.controller.CategoryHandler.CategoryNews), # category_(分类编号)_(页码)
-            (r"/data/getCategory", app.controller.CategoryHandler.GetCategory),
+            (r"/", app.controller.HomeHandler.HomeHandler), 
+            (r"/news_(\d+)", app.controller.NewsHandler.ShowNews), # news_(新闻编号) -- 显示新闻内容 <GET>
+            (r"/comments_(\d+)", app.controller.CommentHandler.ShowComments), # comments_(新闻编号) -- 显示新闻评论 <GET>
+            (r"/category_(\d+)_(\d+)", app.controller.CategoryHandler.CategoryNews), # category_(分类编号)_(页码) -- 分页显示分类下的新闻目录 <GET>
+            (r"/data/getCategory", app.controller.CategoryHandler.GetCategory),      # 获取分类目录 <GET>
+            (r"/data/getComments_(\d+)_(\d+)", app.controller.CommentHandler.GetComments), # getComments_(新闻编号)_(页码) -- 获取新闻评论，分页，前台由ajax显示 <GET>
+
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
 
