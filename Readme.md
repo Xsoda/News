@@ -8,14 +8,13 @@
   * [Python 3.2.2](http://python.org)
   * [psycopg2 2.4.4](http://initd.org/psycopg)
   * [PostgreSql 9.1](http://postgresql.org)
-  * [mako 0.6.2](http://makotemplates.org
+  * [mako 0.6.2](http://makotemplates.org)
   * [tornado 2.2](https://github.com/facebook/tornado.git)
   * [redis 2.4.5 (for windows)](https://github.com/dmajkic/redis.git)
   * [redis-py](https://github.com/dcolish/redis-py.git)
 
 ## 参考
-  * session redis http://tornadogists.org/1735032 by ayang
-  * 代码组织 https://github.com/vfasky/qcoreblog
+  * [session redis](http://tornadogists.org/1735032)
   
 ## 开发日志
   * [2012-04-18 周三]    使用Redis存储Session，评论添加完成，评论与新闻分页待完善
