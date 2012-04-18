@@ -1,6 +1,7 @@
 # *_* coding: utf-8 *_*
 
 from app.controller.Base import BaseHandler
+
 def printnum(num):
     postfix = ('st', 'nd', 'rd')
     try:
@@ -19,8 +20,9 @@ class GetCategory(BaseHandler):
 class CategoryNews(BaseHandler):
     def get(self, id, pageth=1):
         pages = self.db.get("select count(*) from news where news.categoryid=%s;" % id)
+        category = self.db.get("select name from category where id=%s;" % id)
         newses = self.db.query("select news.id, news.title, news.postedat, news.commentnum, usr.name as author, category.name as category from news left join usr on news.author=usr.id left join category on news.categoryid=category.id where news.categoryid=%s order by news.postedat desc limit 20 offset %d;" % (id, (int(pageth) - 1) * 20))
         if newses:
             self.write(self.serve_template("newslist.html", **{'newses': newses, 'position': newses[0]['category'], 'pages': (int(pages['count']) + 20) // 20, 'page':pageth, 'category': id}))
         else:
-            self.write("get {id} category and {page} page error.".format(**{'id': printnum(id), 'page': printnum(pageth)}))
+            self.write(self.serve_template("newslist.html", **{'newses': None, 'position': category['name'], 'newses': None, 'pages': None, 'page': None, 'category': id}))

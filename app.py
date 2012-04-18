@@ -10,7 +10,8 @@ import tornado.options
 import tornado.web
 import tornado.autoreload
 import app.controller
-from app.controller import * 
+from app.controller import *
+import redis
 
 from tornado.options import define, options
 
@@ -21,6 +22,10 @@ define("pg_user", default="postgres", help="database user")
 define("pg_password", default="1989ii24", help="database password")
 define("template_directory", default="app/view", help="default mako template directory")
 define("mako_moudle_dir", default="app/view/mako_moudle", help="default mako complie template directory")
+
+define('redis_host', default='localhost', help='Redis server host')
+define('redis_port', default=6379, help='Redis server port')
+define('redis_db', default=0, help='Redis server db')
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -40,6 +45,7 @@ class Application(tornado.web.Application):
             (r"/category_(\d+)_(\d+)", app.controller.CategoryHandler.CategoryNews), # category_(分类编号)_(页码) -- 分页显示分类下的新闻目录 <GET>
             (r"/data/getCategory", app.controller.CategoryHandler.GetCategory),      # 获取分类目录 <GET>
             (r"/data/getComments_(\d+)_(\d+)", app.controller.CommentHandler.GetComments), # getComments_(新闻编号)_(页码) -- 获取新闻评论，分页，前台由ajax显示 <GET>
+            (r"/data/addComment", app.controller.CommentHandler.AddComment), # 添加评论，<POST>
 
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
@@ -47,6 +53,10 @@ class Application(tornado.web.Application):
         self.db = core.db.database.Connection(
             host = options.pg_host, database = options.pg_database,
             user = options.pg_user, password = options.pg_password)
+        tornado.web.Application.__init__(self, handlers, **settings)
+#        self.db_session = db_session
+         self.redis = redis.Redis(host = options.redis_host, port = options.redis_port, db = options.redis_db)
+         self.session_store = RedisSessionStore(self.redis)
 
 def main():
     tornado.options.parse_command_line()

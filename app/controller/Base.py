@@ -3,6 +3,7 @@ from tornado.options import define, options
 from mako.template import Template
 from mako.lookup import TemplateLookup
 from mako.exceptions import RichTraceback
+from app.core.session.session import Session
 
 class BaseHandler(tornado.web.RequestHandler):
     @property
@@ -10,11 +11,13 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.application.db
    
     def get_current_user(self):
-        user_id = self.get_secure_cookie("user")
-        if not user_id:
-            return None
-        return self.db.get("Select * from usr where id = %s", int(user_id))
+        return self.session['user'] if self.session and 'user' in self.session else None
 
+    @property
+    def session(self):
+        sessionid = self.get_secure_cookie('sid')
+        return Session(self.application.session_store, sessionid)
+    
     def template_exists(self, template_name):
         self._template_exists_cache = {}
         if self._template_exists_cache.get(template_name, None):
