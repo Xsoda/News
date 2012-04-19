@@ -4,6 +4,7 @@
 import os.path
 import re
 import core.db.database
+from core.session.session import RedisSessionStore
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
@@ -54,9 +55,8 @@ class Application(tornado.web.Application):
             host = options.pg_host, database = options.pg_database,
             user = options.pg_user, password = options.pg_password)
         tornado.web.Application.__init__(self, handlers, **settings)
-#        self.db_session = db_session
-         self.redis = redis.Redis(host = options.redis_host, port = options.redis_port, db = options.redis_db)
-         self.session_store = RedisSessionStore(self.redis)
+        self.redis = redis.Redis(host = options.redis_host, port = options.redis_port, db = options.redis_db)
+        self.session_store = RedisSessionStore(self.redis)
 
 def main():
     tornado.options.parse_command_line()

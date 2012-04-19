@@ -61,7 +61,7 @@ class ShowComments(BaseHandler):
     def get(self, id):
         newsinfo = self.db.get("select news.id, news.title, news.postedat, news.commentnum, category.name as category, usr.name as author from news left join category on news.categoryid=category.id left join usr on news.author=usr.id where news.id=%s;" % id)
         comment_num = self.db.get("select count(*) from comment where comment.newsid=%s;" % id)
-        self.write(self.serve_template('comment.html', **{'newsinfo': newsinfo, 'pages': comment_num['count'], 'xsrf': self.xsrf_form_html()}))
+        self.write(self.serve_template('comment.html', **{'newsinfo': newsinfo, 'comment_num': comment_num['count'], 'xsrf': self.xsrf_form_html()}))
         self.flush()
 
 class AddComment(BaseHandler):

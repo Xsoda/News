@@ -38,7 +38,9 @@ ${newsinfo['category']}&nbsp;&gt;&nbsp;${newsinfo['title']}&nbsp;&gt;&nbsp;评�
 </div>
 <div id="commentsHolder">
 </div>
-${pagination(1, pages, 'getComment', newsinfo['id'])}
+<div class="pagination">
+  ${pagination(1, pages, 'getComment', newsinfo['id'])}
+</div>
 <h3 class="title">发表评论</h3>
 <p class="notice">发表评论请客观、公正，请文明用语。</p>
 <form action="/data/addComment" method="post" id="commentform" name="commentform">

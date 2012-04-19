@@ -1,37 +1,14 @@
-<%def name="pagination(pageth, pages, cacategory, categoryid)">
-%if int(pages) > 1:
-<div class="comments_list">
-  <ul class="pager">
-    %if int(pageth) is not 1:
-    <li class="page prev">
-      <a href="/${category}_${categoryid}_${int(pageth) - 1}">&lt;</a>
-    </li>
-    %endif
-    <%
-       current = 'current' if int(pageth) is 1 else ''
-    %>
-    <li class="page ${current}">
-      <a href="/${category}_${categoryid}_1">1</a>
-    </li>
-    %for p in range(int(pageth) - 3 if int(pageth) >= 5 else 2, int(pageth) + 11 if int(pages) + 1 <= int(pageth) + 11 else int(pages) + 1):
-    <%
-       current = 'current' if int(pageth) == p else ''
-    %>
-    <li class="page ${current}">
-      <a href="/${category}_${categoryid}_{p}">${p}</a>
-    </li>
-    %endfor
-    %if int(pageth) - 3 + 8 < int(pages):
-        <li class="page">
-          <a href="/${category}_${categoryid}_${int(pages)}">${int(pages)}</a>
-        </li>
-   %endif
-   %if int(pageth) is not int(pages):
-        <li class="page next">
-          <a href="/${category}_${categoryid}_${int(pageth) + 1}">&gt;</a>
-        </li>
+<%def name="pagination(pageth, item_num, category, categoryid)">
+%if int(item_num) > 1:
+  %if int(pageth) != 1:
+    <a href="/data/${category}_${categoryid}_${int(pageth) - 1}" class="page">&lt;</a>
   %endif
-  </ul>
-</div>
+  %for i in range( (pageth-3) if (pageth - 3) > 0 else 1 ,pateth):
+    <a href="/data/${category}_${categoryid}_${i}" class="page">${i}</a>
+  %endfor
+  <a href="/data/${category}_${categoryid}_${pageth}" class="page">${pageth}</a>
+  %for i in range( pageth + 1, (item_num + 19) // 20):
+  <a href="/data/${category}_${categoryid}_${int(pageth) + 1}" class="page">&gt;</a>
+  %endfor
 %endif
 </%def>
