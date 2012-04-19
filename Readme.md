@@ -1,5 +1,3 @@
-# Web News Manager
-
 ## About This Project
 
   这个Repo主要用于新闻管理系统的毕业设计，没有任何实用及使用价值。
