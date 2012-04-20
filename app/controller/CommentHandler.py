@@ -22,7 +22,7 @@ def parse(comment, comments):
 
 def parseCommentsToHtml(comments, pageth):
     html = []
-    for comment in comments[(int(pageth) - 1) * 20 : int(pageth) * 20]:
+    for comment in comments[(int(pageth) - 1) * 10 : int(pageth) * 10]:
         html.append('''<div class="comment"><p class="title"><span>{time}</span>{author}</p>'''.format(**{'time': comment['postedat'], 'author': comment['name']}))
         if comment['commentid'] != 0:
             html.append(parse(comment, comments))
@@ -51,7 +51,7 @@ class GetComments(BaseHandler):
     
     def get(self, newsid, pageth):
         comments = self.db.query("select comment.id, comment.content, comment.postedat, comment.commentid, usr.email, usr.name from comment left join usr on comment.authorid=usr.id where comment.newsid=%s order by comment.postedat desc;" % newsid)
-        if comments and int(pageth) * 20 < len(comments):
+        if comments and int(pageth) * 10 < (len(comments) + 10):
             self.write(parseCommentsToHtml(comments, pageth))
         else:
             self.write('error')

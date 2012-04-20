@@ -259,3 +259,20 @@ h2{
     color: #f0f0f0;
     text-shadow: 0px 0px 3px rgba(0, 0, 0, .5);
 }
+
+h3.title {
+    clear: both;
+    position: relative;
+    z-index: 1;
+    margin: 1px 0;
+    padding: 5px;
+    border-bottom: 1px solid #CCC;
+    font-size: 14px;
+}
+
+.notice {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px dashed #CCC;
+    background: #F1F1F1;
+}

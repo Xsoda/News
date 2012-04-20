@@ -29,12 +29,12 @@ ${news['category']}&nbsp;&gt;&nbsp;${news['title']}
   ${news['content']}
 </div>
 
-<div class="comments_list">
+<div class="notice">
  <strong>
    %if news['commentnum']:
    <a href="/comments_${news['id']}">${news['commentnum']} 位网友发表了自己的评论, 点击查看评论.</a>
    %else:
-   暂时还没有网友对此评论.
+  <a href="/comments_${news['id']}">暂时还没有网友对此评论. 点击发表评论. </a>
    %endif
  </strong>
 </div>

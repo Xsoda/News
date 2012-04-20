@@ -1,14 +1,8 @@
-<%def name="pagination(pageth, item_num, category, categoryid)">
+<%def name="pagination(item_num, category, categoryid)">
 %if int(item_num) > 1:
-  %if int(pageth) != 1:
-    <a href="/data/${category}_${categoryid}_${int(pageth) - 1}" class="page">&lt;</a>
-  %endif
-  %for i in range( (pageth-3) if (pageth - 3) > 0 else 1 ,pateth):
-    <a href="/data/${category}_${categoryid}_${i}" class="page">${i}</a>
-  %endfor
-  <a href="/data/${category}_${categoryid}_${pageth}" class="page">${pageth}</a>
-  %for i in range( pageth + 1, (item_num + 19) // 20):
-  <a href="/data/${category}_${categoryid}_${int(pageth) + 1}" class="page">&gt;</a>
+  <a id="/data/${category}_${categoryid}_1" class="page active" onClick="javascript:pageJump(this);">1</a>
+  %for i in range(2, (item_num + 9) // 10 + 1):
+  <a id="/data/${category}_${categoryid}_${i}" class="page" onClick="javascript:pageJump(this);">${i}</a>
   %endfor
 %endif
 </%def>

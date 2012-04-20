@@ -38,9 +38,12 @@ ${newsinfo['category']}&nbsp;&gt;&nbsp;${newsinfo['title']}&nbsp;&gt;&nbsp;评�
 </div>
 <div id="commentsHolder">
 </div>
+%if comment_num:
 <div class="pagination">
-  ${pagination(1, pages, 'getComment', newsinfo['id'])}
+  ${pagination(comment_num, 'getComments', newsinfo['id'])}
 </div>
+%endif
+
 <h3 class="title">发表评论</h3>
 <p class="notice">发表评论请客观、公正，请文明用语。</p>
 <form action="/data/addComment" method="post" id="commentform" name="commentform">
@@ -55,10 +58,22 @@ ${newsinfo['category']}&nbsp;&gt;&nbsp;${newsinfo['title']}&nbsp;&gt;&nbsp;评�
   </p>
 </form>
 %endif
+%if comment_num:
 <script type="text/javascript">
   $(document).ready(function () {
-  $.get("/data/getComments_${newsinfo['id']}_1", function (html) {
+  var url = $("a.active").attr("id");
+  $.get(url, function (html) {
   $("div#commentsHolder").append(html);
-  })
-  })
+  });
+  });
+  
+  function pageJump(obj) {
+  $("a.active").removeClass("active");
+  obj.class="page active";
+  $.get(obj.id, function (html){
+  $("div#commentsHolder").empty();
+  $("div#commentsHolder").append(html);
+  });
+  }
 </script>
+%endif
