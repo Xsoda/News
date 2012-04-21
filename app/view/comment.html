@@ -68,12 +68,12 @@ ${newsinfo['category']}&nbsp;&gt;&nbsp;${newsinfo['title']}&nbsp;&gt;&nbsp;è¯„è®
   });
   
   function pageJump(obj) {
-  $("a.active").removeClass("active");
-  obj.class="page active";
-  $.get(obj.id, function (html){
-  $("div#commentsHolder").empty();
-  $("div#commentsHolder").append(html);
-  });
+      $("a.active").removeClass("active");
+     // $("#" + id).addClass("active");
+      $.get(obj.id, function (html){
+           $("div#commentsHolder").empty();
+           $("div#commentsHolder").append(html);
+      });
   }
 </script>
 %endif
