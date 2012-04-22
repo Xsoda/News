@@ -17,7 +17,7 @@ ${position}
 <h3 class="title">${position}</h3>
 %if newses:
 %for news in newses:
-<div id="news_${news['id']}" class="comments_list">
+<div id="news_${news['id']}" class="box">
   [${news['category']}]&nbsp;${news['title']} <lable style="float:right; color: #666;">${news['commentnum']}评论 @${news['postedat']} By ${news['author']}</lable>
 </div>
 %endfor
@@ -25,7 +25,7 @@ ${position}
 
 <script type="text/javascript">
   $(document).ready(function(){
-  $("div.comments_list").click(function(){
+  $("div.box").click(function(){
   open($(this).attr("id"));
   });
   });

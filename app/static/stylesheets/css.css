@@ -76,49 +76,6 @@ h2{
     background: url("../images/line.gif") no-repeat scroll left bottom transparent;
 }
 
-#posts{
-    margin-top: 5px;
-}
-#posts li {
-    list-style: none;
-}
-#posts li:hover{
-}
-.post {
-    background: url("../images/shadow-small.jpg") no-repeat scroll center bottom transparent;
-    cursor: pointer;
-    float: left;
-    height: 178px;
-    margin: 0 22px 10px 0;
-    position: relative;
-    width: 165px;
-}
-.post div {
-    background: url("../images/post-bg-small.png") repeat scroll 0 0 #FFFFFF;
-    display: block;
-    font-style: italic;
-    height: 138px;
-    padding: 15px 20px 12px;
-}
-.post .icon {
-    left: -8px;
-    position: absolute;
-    top: 70px;
-    display:none;
-}
-.post_close{
-    margin-top:10px;
-    cursor: pointer;
-    float: right; display: none;
-}
-.post div .photospan {
-    display: block;
-    height: 149px;
-    margin: -7px 0 0 -12px;
-    overflow: hidden;
-    position: relative;
-    width: 149px;
-}
 .date_time{
     font-size: 10px;
     color: silver;
@@ -150,13 +107,6 @@ h2{
     padding: 5px;
         border:1px solid #CCC;
 }
-.summary{
-    text-align: center;
-    display: block;
-    font-style: italic;
-    padding: 5px 5px 5px;
-        border-top:1px solid #CCC;
-}
 .content_post_top {
     background-image: url("../images/big-post-top.gif");
     display: block;
@@ -173,14 +123,7 @@ h2{
     margin-top: 20px;
     width: 728px;
 }
-.somework_list{
-    cursor: pointer;
-    margin:5px;
-    padding: 5px;
-    float: left;
-    border-bottom:1px solid #CCC;
-}
-.comments_list{
+.box{
     margin-top:10px;
         white-space:normal;
     display: block;
@@ -190,26 +133,6 @@ h2{
     padding: 5px;
     border:1px solid #CCC;
         line-height:24px;
-}
-#new_comment{
-    background-color: #FFFFB9;
-}
-.comment_info{
-    background:#63c0e6;
-    width: 600px;
-    border-bottom:1px solid #CCC;
-        border-left:1px solid #CCC;
-            border-right:1px solid #CCC;
-    padding:0 5px; 
-    font-size:10px;
-}
-.sp{
-    margin-left:5px;
-    margin-right:5px;
-}
-.comment_line{
-    width:100%;
-    border-bottom:1px solid #CCC;
 }
 #footer{
         color:#999;
