@@ -12,7 +12,7 @@
   * [redis-py](https://github.com/dcolish/redis-py.git)
 
 ## 参考
-  * [session redis](http://tornadogists.org/1735032)
+  * [session redis](http://tornadogists.org/1735032/)
   
 ## 开发日志
   * [2012-04-18 周三]    使用Redis存储Session，评论添加完成，评论与新闻分页待完善
