@@ -15,8 +15,14 @@ class BaseHandler(tornado.web.RequestHandler):
 
     @property
     def session(self):
-        sessionid = self.get_secure_cookie('sid')
-        return Session(self.application.session_store, sessionid)
+        if hasattr(self, '_session'):
+            return self._session
+        else:
+            sessionid = self.get_secure_cookie('sid')
+            self._session = RedisSession(self.application.session_store, sessionid, expires_days=options.expires_days)
+            if not sessionid:
+                self.set_secure_cookie('sid', self._session.sessionid, expires_days=options.expires_days)
+        return self._session
     
     def template_exists(self, template_name):
         self._template_exists_cache = {}

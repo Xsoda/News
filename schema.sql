@@ -94,6 +94,8 @@ insert into category(id, name, parentId) values(109, '博客', 0);
 insert into category(id, name, parentId) values(110, '论坛', 0);
 insert into category(id, name, parentId) values(111, '公益', 0);
 insert into category(id, name, parentId) values(112, '媒体', 0);
+insert into usr(name, password, salt, email, grade)
+        values ( 'admin', '01e0f1ec36407fd64565484435300a9d62e6e812c52ae03830c4acb9f6b4301e', 'myS%TyWHAeHyGz`2I5}VNWa%', 'xsoda@live.cn', '1');
 -- insert into
 -- insert into
 -- insert into
