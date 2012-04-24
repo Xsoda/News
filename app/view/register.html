@@ -1,0 +1,28 @@
+﻿<%inherit file="base.html"/>
+
+<%block name="title">
+PPTM News
+</%block>
+
+<%block name="header">
+<div id="head">
+  <img src="../static/images/logo.gif">
+</div>
+</%block>
+
+<%block name="current_position">
+注册
+</%block>
+<h1 class="title">注册</h1>
+<div class="notice">
+  <form action="/auth/register" method="post">
+    <table>
+      <tr><td>用户名:</td><td><input type="text" name="user_name"></td></tr>
+      <tr><td>密码:</td><td><input type="password" name="user_password"></td></tr>
+      <tr><td>重复密码:</td><td><input type="password" name="repeat_password"></td></tr>
+      <tr><td>电子邮件:</td><td><input type="text" name="email"></td></tr>
+      <tr><td><input type="submit" value="注册"></td><td><input type="reset" value="重置"></td></tr>
+      ${xsrf}
+    </table>
+  </form>
+</div>
