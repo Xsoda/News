@@ -69,7 +69,7 @@ ${newsinfo['category']}&nbsp;&gt;&nbsp;${newsinfo['title']}&nbsp;&gt;&nbsp;è¯„è®
   
   function pageJump(obj) {
       $("a.active").removeClass("active");
-     // $("#" + id).addClass("active");
+      obj.addClass("active");
       $.get(obj.id, function (html){
            $("div#commentsHolder").empty();
            $("div#commentsHolder").append(html);
