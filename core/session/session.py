@@ -1,4 +1,3 @@
-import pickle
 from uuid import uuid4
 import time
 import redis
@@ -20,19 +19,19 @@ class RedisSessionStore:
 
     def get_session(self, sid, name):
         data = self.redis.hget(self.prefixed(sid), name)
-        session = pickle.loads(data) if data else dict()
+        session = data if data else dict()
         return session
 
     def set_session(self, sid, session_data, name, expiry=None):
-        expiry = expir or self.options['expire']
-        self.redis.hset(self.prefixed(sid), name, pickle.dumps(session_data))
+        expiry = expiry or self.options['expire']
+        self.redis.hset(self.prefixed(sid), name, session_data)
         if expiry:
             self.redis.expire(self.prefixed(sid), expiry)
 
     def delete_session(self, sid):
         self.redis.delete(self.prefixed(sid))
 
-class ReidsSession:
+class RedisSession:
 
     def __init__(self, session_store, sessionid=None, expires_days=None):
         self._store = session_store
@@ -88,7 +87,7 @@ class ReidsSession:
 
     def __del__(self):
         if self.dirty:
-            self._save()
+            self.save()
 
     def _dirty(self):
         self.dirty = True

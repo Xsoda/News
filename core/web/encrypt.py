@@ -11,18 +11,19 @@ md5_email = lambda x: md5(x.encode(encoding='ascii').lower()).hexdigest() # md5�
 
 md5 = lambda x: md5(x.encode(encoding='ascii')).hexdigest() # md5 加密
 
-sha256 = lambda x: sha256(x.encode()).hexdigest()
+sha = lambda x: sha256(x.encode()).hexdigest()
 
 def salt_generator(size=24, chars=string.punctuation + string.ascii_letters + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 
 def _encrypt_pwd(password, salt):
-    pwd = ''
+    pwd = []
     for i in password:
-        pwd += char_set[ord(x)%len(char_set)]
-    return sha256(pwd + salt[-(len(salt) - len(pwd)):])
+        pwd.append(char_set[ord(i)%len(char_set)])
+    pwd.append(salt[-(len(salt) - len(pwd)):])
+    return sha(''.join(pwd))
 
-def encrypt(password):
+def encrypt_password(password):
     salt = salt_generator()
     if len(password) >=6 and len(password) <= 16:
         return _encrypt_pwd(password, salt), salt

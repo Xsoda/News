@@ -3,7 +3,8 @@ from tornado.options import define, options
 from mako.template import Template
 from mako.lookup import TemplateLookup
 from mako.exceptions import RichTraceback
-from core.session.session import Session
+from core.session.session import RedisSession
+
 
 class BaseHandler(tornado.web.RequestHandler):
     @property

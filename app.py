@@ -4,7 +4,6 @@
 import os.path
 import re
 import core.db.database
-from core.session.session import RedisSessionStore
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
@@ -13,6 +12,7 @@ import tornado.autoreload
 import app.controller
 from app.controller import *
 import redis
+from core.session.session import RedisSessionStore
 
 from tornado.options import define, options
 
@@ -50,7 +50,7 @@ class Application(tornado.web.Application):
             (r"/data/getComments_(\d+)_(\d+)", app.controller.CommentHandler.GetComments), # getComments_(新闻编号)_(页码) -- 获取新闻评论，分页，前台由ajax显示 <GET>
             (r"/data/addComment", app.controller.CommentHandler.AddComment), # 添加评论，<POST>
             (r"/auth/login", app.controller.AuthorizedHandler.Login),
-            (r"auth/register", app.controller.AuthorizedHandler.Register),
+            (r"/auth/register", app.controller.AuthorizedHandler.Register),
 
         ]
         tornado.web.Application.__init__(self, handlers, **settings)

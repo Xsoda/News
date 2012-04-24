@@ -163,3 +163,4 @@ class Row(dict):
             raise AttributeError(name)
     
 OperationalError = psycopg2.OperationalError
+IntegrityError = psycopg2.IntegrityError

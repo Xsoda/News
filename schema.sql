@@ -10,6 +10,8 @@ create table usr( -- 用户表
        constraint pk_usr primary key (id)
 );
 alter sequence usr_id_seq owned by usr.id;
+alter table usr constraint unique_name unique(name); -- 添加唯一约束
+alter table usr constraint unique_name unique(email);
 
 create sequence category_id_seq start 1;
 create table category( -- 新闻分类表
