@@ -1,18 +1,17 @@
 <%inherit file="base.html"/>
-
+<%namespace file="nav.html" import="navigation"/>
+<%block name="nav">
+%if news:
+${navigation(news['categoryid'])}
+%else:
+${navigation(0)}
+%endif
+</%block>
 <%block name="title">
 PPTM News
 </%block>
 
-<%block name="header">
-<div id="head">
-  <img src="../static/images/logo.gif">
-</div>
-</%block>
 %if news:
-<%block name="current_position">
-${news['category']}&nbsp;&gt;&nbsp;${news['title']}
-</%block>
 
 <h1>${news['title']}</h1>
 
@@ -39,7 +38,7 @@ ${news['category']}&nbsp;&gt;&nbsp;${news['title']}
  </strong>
 </div>
 %else:
-<div class="comments_lsit" style="color: red;">
+<div class="box" style="color: red;">
  <h1>404</h1>
 </div>
 %endif

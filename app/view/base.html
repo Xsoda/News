@@ -8,21 +8,20 @@
     <%block name="jsfile"/>
   </head>
   <body>
-    <div style="margin:auto; width: 800px">
-    <%include file="./nav.html"/>
-    <%block name="header"/>
-    <div id="page">
-      当前位置: <%block name="current_position" />
-      <div id="content">
-        <span class="content_post_top"></span>
-    ${self.body()}
-        <span class="content_post_bottom"></span>
+    <div id="container">
+      <div id="header">
+        <h1>PPTM News</h1>
       </div>
-    </div>
-    <div id="footer">
-     <p>&#169; Powered by Xsoda</p>
-     <p>花开堪折直须折，莫待无花空折枝。</p>
-    </div>
+      <%block name="nav"/>
+      <div id="content">
+        ${self.body()}
+      </div>
+      <div id="extra">
+      </div>
+      <div id="footer">
+        <p>&#169; Powered by Xsoda</p>
+        <p>花开堪折直须折，莫待无花空折枝。</p>
+      </div>
     </div>
   </body>
 </html>

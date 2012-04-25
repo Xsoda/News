@@ -46,7 +46,7 @@ class Application(tornado.web.Application):
             (r"/news_(\d+)", app.controller.NewsHandler.ShowNews), # news_(新闻编号) -- 显示新闻内容 <GET>
             (r"/comments_(\d+)", app.controller.CommentHandler.ShowComments), # comments_(新闻编号) -- 显示新闻评论 <GET>
             (r"/category_(\d+)_(\d+)", app.controller.CategoryHandler.CategoryNews), # category_(分类编号)_(页码) -- 分页显示分类下的新闻目录 <GET>
-            (r"/data/getCategory", app.controller.CategoryHandler.GetCategory),      # 获取分类目录 <GET>
+            (r"/data/getCategory_(\d+)", app.controller.CategoryHandler.GetCategory),      # 获取分类目录 <GET>
             (r"/data/getComments_(\d+)_(\d+)", app.controller.CommentHandler.GetComments), # getComments_(新闻编号)_(页码) -- 获取新闻评论，分页，前台由ajax显示 <GET>
             (r"/data/addComment", app.controller.CommentHandler.AddComment), # 添加评论，<POST>
             (r"/auth/login", app.controller.AuthorizedHandler.Login),
