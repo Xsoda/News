@@ -4,6 +4,7 @@ __author__ = 'Xsoda'
 from app.controller.Base import BaseHandler
 import time
 from core.web.helpers import gravatar
+from tornado.web import authenticated
 
 def getCommentById(comments, cid, id):
     for comment in comments:
@@ -27,7 +28,7 @@ def parseCommentsToHtml(comments, pageth):
         html.append('''<div class="comment"><p class="title"><span>{time}</span><img height="20" src="{gravatar}"></img>{author}</p>'''.format(**{'time': comment['postedat'], 'gravatar': gravatar(comment['email']), 'author': comment['name']}))
         if comment['commentid'] != 0:
             html.append(parse(comment, comments))
-        html.append("<p>{content}</p></div>".format(**{'content': comment['content']}))
+        html.append('<p>{content}<a class="btn" style="float:right;" href="javascript:addQuote({id})">引用评论</a></p></div>'.format(**{'content': comment['content'], 'id': comment['id']}))
     return ''.join(html)
 
 class GetComments(BaseHandler):
@@ -66,11 +67,15 @@ class ShowComments(BaseHandler):
         self.flush()
 
 class AddComment(BaseHandler):
+
+    @authenticated
     def post(self):
         news_id = self.get_argument('comment_post_id')
         parent_id = self.get_argument('comment_parent')
         comment_content = self.get_argument('comment')
-        if self.db.execute_rowcount("insert into comment(authorid,author,  newsid, content, postedat, commentid) values('%s', '%s', '%s', '%s', '%s', '%s');" % ('1', 'Xsoda', news_id, comment_content, time.ctime(), parent_id)):
+        user = self.get_current_user()
+        if self.db.execute_rowcount("insert into comment(authorid, author, newsid, content, postedat, commentid) values('%s', '%s', '%s', '%s', '%s', '%s');" % (user['id'], user['name'], news_id, comment_content, time.ctime(), parent_id)):
+            self.db.execute_rowcount("update news set commentnum = commentnum + 1 where id='%s';" % news_id)
             self.write('done')
         else:
             self.write('undone')

@@ -1,9 +1,11 @@
-<div id="nav">
-</div>
-<script type="text/javascript">
-  $(document).ready(function() {
-      $.get("/data/getCategory", function(html) {
-          $("#nav").append(html);
-      })
-  })
-</script>
+<%def name="navigation(selected)">
+      <div id="navigation">
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+        $.get("/data/getCategory_${selected}", function(html) {
+        $("#navigation").append(html);
+        })
+        })
+      </script>
+</%def>

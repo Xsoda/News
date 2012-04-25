@@ -1,17 +1,11 @@
 <%inherit file="base.html"/>
 <%namespace file="pagination.html" import="pagination"/>
+<%namespace file="nav.html" import="navigation"/>
+<%block name="nav">
+${navigation(categoryid)}
+</%block>
 <%block name="title">
 PPTM News
-</%block>
-
-<%block name="header">
-<div id="head">
-  <img src="../static/images/logo.gif">
-</div>
-</%block>
-
-<%block name="current_position">
-${position}
 </%block>
 
 <h1>${position}新闻</h1>
@@ -23,7 +17,7 @@ ${position}
 </div>
 %endfor
 </div>
-${pagination(pages, 'category', newses[0]['id'])}
+${pagination(pages, 'category', categoryid)}
 %else:
  <p><strong>${position}</strong> 分类下还没有添加新闻。</p>
 %endif

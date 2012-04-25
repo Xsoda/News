@@ -1,17 +1,11 @@
 ﻿<%inherit file="base.html"/>
+<%namespace file="nav.html" import="navigation"/>
+<%block name="nav">
+${navigation(0)}
+</%block>
 
 <%block name="title">
 PPTM News
-</%block>
-
-<%block name="header">
-<div id="head">
-  <img src="../static/images/logo.gif">
-</div>
-</%block>
-
-<%block name="current_position">
-${position}
 </%block>
 
 <h3 class="title">${position}</h3>
