@@ -1,3 +1,4 @@
+from anyjson import serialize, deserialize
 from uuid import uuid4
 import time
 import redis
@@ -19,12 +20,12 @@ class RedisSessionStore:
 
     def get_session(self, sid, name):
         data = self.redis.hget(self.prefixed(sid), name)
-        session = data if data else dict()
+        session = deserialize(data) if data else dict()
         return session
 
     def set_session(self, sid, session_data, name, expiry=None):
         expiry = expiry or self.options['expire']
-        self.redis.hset(self.prefixed(sid), name, session_data)
+        self.redis.hset(self.prefixed(sid), name, serialize(session_data))
         if expiry:
             self.redis.expire(self.prefixed(sid), expiry)
 

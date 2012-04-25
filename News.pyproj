@@ -3,15 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{cd201df9-f2d5-4f1d-8103-80342c84ea76}</ProjectGuid>
+    <ProjectGuid>{0600fa7f-e6d7-4e52-a265-34a16d457bfa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>app.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>pptm-news</Name>
-    <RootNamespace>pptm-news</RootNamespace>
+    <Name>News</Name>
+    <RootNamespace>News</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,33 +22,40 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="Readme.md" />
+    <Content Include="schema.sql" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="app.py" />
+    <Compile Include="app\controller\AuthorizedHandler.py" />
     <Compile Include="app\controller\Base.py" />
     <Compile Include="app\controller\CategoryHandler.py" />
     <Compile Include="app\controller\CommentHandler.py" />
     <Compile Include="app\controller\HomeHandler.py" />
     <Compile Include="app\controller\NewsHandler.py" />
     <Compile Include="app\controller\__init__.py" />
+    <Compile Include="app\view\mako_moudle\auth.html.py" />
+    <Compile Include="app\view\mako_moudle\base.html.py" />
+    <Compile Include="app\view\mako_moudle\comment.html.py" />
+    <Compile Include="app\view\mako_moudle\index.html.py" />
+    <Compile Include="app\view\mako_moudle\login.html.py" />
+    <Compile Include="app\view\mako_moudle\nav.html.py" />
+    <Compile Include="app\view\mako_moudle\news.html.py" />
+    <Compile Include="app\view\mako_moudle\newslist.html.py" />
+    <Compile Include="app\view\mako_moudle\pagination.html.py" />
+    <Compile Include="app\view\mako_moudle\register.html.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="core\db\database.py" />
     <Compile Include="core\db\__init__.py" />
+    <Compile Include="core\session\session.py" />
+    <Compile Include="core\session\__init__.py" />
     <Compile Include="core\web\encrypt.py" />
-    <Compile Include="core\web\template.py" />
+    <Compile Include="core\web\helpers.py" />
     <Compile Include="core\web\validators.py" />
     <Compile Include="core\web\__init__.py" />
     <Compile Include="core\__init__.py" />
     <Compile Include="__init__.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="app\view\base.html" />
-    <Content Include="app\view\comment.html" />
-    <Content Include="app\view\index.html" />
-    <Content Include="app\view\nav.html" />
-    <Content Include="app\view\news.html" />
-    <Content Include="app\view\newslist.html" />
-    <Content Include="app\view\pagination.html" />
-    <Content Include="Readme.org" />
-    <Content Include="schema.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\" />
@@ -60,68 +67,58 @@
     <Folder Include=".git\logs\refs\remotes\" />
     <Folder Include=".git\logs\refs\remotes\origin\" />
     <Folder Include=".git\objects\" />
-    <Folder Include=".git\objects\03\" />
-    <Folder Include=".git\objects\05\" />
-    <Folder Include=".git\objects\06\" />
-    <Folder Include=".git\objects\0e\" />
+    <Folder Include=".git\objects\10\" />
     <Folder Include=".git\objects\13\" />
-    <Folder Include=".git\objects\15\" />
-    <Folder Include=".git\objects\1f\" />
     <Folder Include=".git\objects\22\" />
-    <Folder Include=".git\objects\25\" />
+    <Folder Include=".git\objects\26\" />
+    <Folder Include=".git\objects\27\" />
     <Folder Include=".git\objects\2e\" />
-    <Folder Include=".git\objects\32\" />
-    <Folder Include=".git\objects\37\" />
+    <Folder Include=".git\objects\33\" />
     <Folder Include=".git\objects\38\" />
-    <Folder Include=".git\objects\3d\" />
-    <Folder Include=".git\objects\3e\" />
-    <Folder Include=".git\objects\46\" />
-    <Folder Include=".git\objects\4b\" />
-    <Folder Include=".git\objects\4e\" />
+    <Folder Include=".git\objects\39\" />
+    <Folder Include=".git\objects\42\" />
+    <Folder Include=".git\objects\44\" />
+    <Folder Include=".git\objects\45\" />
+    <Folder Include=".git\objects\49\" />
+    <Folder Include=".git\objects\4a\" />
+    <Folder Include=".git\objects\55\" />
     <Folder Include=".git\objects\57\" />
-    <Folder Include=".git\objects\5a\" />
     <Folder Include=".git\objects\5b\" />
-    <Folder Include=".git\objects\5e\" />
-    <Folder Include=".git\objects\65\" />
-    <Folder Include=".git\objects\6c\" />
-    <Folder Include=".git\objects\72\" />
+    <Folder Include=".git\objects\5c\" />
+    <Folder Include=".git\objects\62\" />
+    <Folder Include=".git\objects\63\" />
+    <Folder Include=".git\objects\66\" />
+    <Folder Include=".git\objects\69\" />
+    <Folder Include=".git\objects\6a\" />
+    <Folder Include=".git\objects\74\" />
+    <Folder Include=".git\objects\75\" />
     <Folder Include=".git\objects\78\" />
-    <Folder Include=".git\objects\7a\" />
-    <Folder Include=".git\objects\80\" />
-    <Folder Include=".git\objects\81\" />
-    <Folder Include=".git\objects\82\" />
-    <Folder Include=".git\objects\88\" />
-    <Folder Include=".git\objects\8a\" />
-    <Folder Include=".git\objects\8b\" />
-    <Folder Include=".git\objects\8e\" />
-    <Folder Include=".git\objects\8f\" />
-    <Folder Include=".git\objects\90\" />
-    <Folder Include=".git\objects\91\" />
-    <Folder Include=".git\objects\97\" />
+    <Folder Include=".git\objects\7c\" />
+    <Folder Include=".git\objects\7d\" />
+    <Folder Include=".git\objects\7f\" />
+    <Folder Include=".git\objects\9a\" />
     <Folder Include=".git\objects\a0\" />
-    <Folder Include=".git\objects\a2\" />
-    <Folder Include=".git\objects\a7\" />
-    <Folder Include=".git\objects\ac\" />
-    <Folder Include=".git\objects\b3\" />
+    <Folder Include=".git\objects\a9\" />
+    <Folder Include=".git\objects\ae\" />
+    <Folder Include=".git\objects\b1\" />
     <Folder Include=".git\objects\b7\" />
-    <Folder Include=".git\objects\b8\" />
-    <Folder Include=".git\objects\c0\" />
-    <Folder Include=".git\objects\c2\" />
-    <Folder Include=".git\objects\c6\" />
-    <Folder Include=".git\objects\c7\" />
-    <Folder Include=".git\objects\d1\" />
+    <Folder Include=".git\objects\bb\" />
+    <Folder Include=".git\objects\c8\" />
+    <Folder Include=".git\objects\cb\" />
+    <Folder Include=".git\objects\cd\" />
+    <Folder Include=".git\objects\cf\" />
+    <Folder Include=".git\objects\d2\" />
     <Folder Include=".git\objects\d3\" />
     <Folder Include=".git\objects\d5\" />
-    <Folder Include=".git\objects\d6\" />
-    <Folder Include=".git\objects\d7\" />
-    <Folder Include=".git\objects\d8\" />
-    <Folder Include=".git\objects\de\" />
-    <Folder Include=".git\objects\df\" />
+    <Folder Include=".git\objects\dd\" />
     <Folder Include=".git\objects\e1\" />
-    <Folder Include=".git\objects\e3\" />
-    <Folder Include=".git\objects\f2\" />
-    <Folder Include=".git\objects\f5\" />
-    <Folder Include=".git\objects\f8\" />
+    <Folder Include=".git\objects\ea\" />
+    <Folder Include=".git\objects\ed\" />
+    <Folder Include=".git\objects\ef\" />
+    <Folder Include=".git\objects\f1\" />
+    <Folder Include=".git\objects\f3\" />
+    <Folder Include=".git\objects\f6\" />
+    <Folder Include=".git\objects\f7\" />
     <Folder Include=".git\objects\info\" />
     <Folder Include=".git\objects\pack\" />
     <Folder Include=".git\refs\" />
@@ -137,10 +134,14 @@
     <Folder Include="app\static\javascripts\" />
     <Folder Include="app\static\stylesheets\" />
     <Folder Include="app\view\" />
+    <Folder Include="app\view\mako_moudle\" />
+    <Folder Include="app\view\mako_moudle\__pycache__\" />
     <Folder Include="app\__pycache__\" />
     <Folder Include="core\" />
     <Folder Include="core\db\" />
     <Folder Include="core\db\__pycache__\" />
+    <Folder Include="core\session\" />
+    <Folder Include="core\session\__pycache__\" />
     <Folder Include="core\web\" />
     <Folder Include="core\web\__pycache__\" />
     <Folder Include="core\__pycache__\" />

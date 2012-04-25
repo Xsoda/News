@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # *_* coding: utf-8 *_*
-from core.web.encrypt import md5
+from hashlib import md5
 
 class Gravatar(object):
    """
@@ -25,7 +25,7 @@ class Gravatar(object):
        self.force_default = force_default
        self.force_lower = force_lower
 
-   def __call__(self, email, size=None, rating=None, default=None, force_default=None, force_lower=True):
+   def __call__(self, email, size=None, rating=None, default=None, force_default=None, force_lower=False):
        if size is None:
            size = self.size
 
@@ -41,7 +41,7 @@ class Gravatar(object):
        if force_lower:
            email = email.lower()
 
-       hash = md5(email)
+       hash = md5(email.encode()).hexdigest()
 
        link = 'http://www.gravatar.com/avatar/{hash}'\
               '?s={size}&d={default}&r={rating}'.format(**locals())
@@ -51,4 +51,5 @@ class Gravatar(object):
 
        return link
        
+gravatar = Gravatar(size=140, rating='g', default='./../static/image/default.png', force_default=False, force_lower=True)
 

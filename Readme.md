@@ -10,11 +10,16 @@
   * [tornado 2.2](https://github.com/facebook/tornado.git)
   * [redis 2.4.5 (for windows)](https://github.com/dmajkic/redis.git)
   * [redis-py](https://github.com/dcolish/redis-py.git)
-
+  * [anyjson](http://pypi.python.org/pypi/anyjson/0.3.1)
+  
 ## 参考
-  * [session redis](http://tornadogists.org/1735032/)
+  * [session redis](http://tornadogists.org/1735032/) 原文使用 pickle 序列化，现改为JSON。
   
 ## 开发日志
+  * [2012-04-25 16:07:07]
+    - 修正评论分页的显示问题
+    - 添加Gravatar的评论头像
+    - 修正Session存储使用pickle的Unicode编码错误，使用JSON解决
   * [2012-04-18 周三]    使用Redis存储Session，评论添加完成，评论与新闻分页待完善
   * [2012-04-15 周一]    添加了简单的Mako模板分页defs(未测试)，下一步：评论添加与显示
   * [2012-04-15 周日]    大幅度修改网站风格，完成了新闻分类请求，以及新闻内容查看

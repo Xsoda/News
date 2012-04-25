@@ -7,10 +7,6 @@ import random
 
 char_set = '8Ml*?!Yz(#:QSy{$|CbcaE,I>Fxi74j.Tu2h3`/v0-n+=o9;<B_HGf\\[)5D~P}s\'A@6OkmK%rpeVU^"&L1]JZdXWNtqgwR'
 
-md5_email = lambda x: md5(x.encode(encoding='ascii').lower()).hexdigest() # md5加密，用于 Gravatar 的头像服务。
-
-md5 = lambda x: md5(x.encode(encoding='ascii')).hexdigest() # md5 加密
-
 sha = lambda x: sha256(x.encode()).hexdigest()
 
 def salt_generator(size=24, chars=string.punctuation + string.ascii_letters + string.digits):

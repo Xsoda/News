@@ -3,6 +3,7 @@ __author__ = 'Xsoda'
 
 from app.controller.Base import BaseHandler
 import time
+from core.web.helpers import gravatar
 
 def getCommentById(comments, cid, id):
     for comment in comments:
@@ -23,7 +24,7 @@ def parse(comment, comments):
 def parseCommentsToHtml(comments, pageth):
     html = []
     for comment in comments[(int(pageth) - 1) * 10 : int(pageth) * 10]:
-        html.append('''<div class="comment"><p class="title"><span>{time}</span>{author}</p>'''.format(**{'time': comment['postedat'], 'author': comment['name']}))
+        html.append('''<div class="comment"><p class="title"><span>{time}</span><img height="20" src="{gravatar}"></img>{author}</p>'''.format(**{'time': comment['postedat'], 'gravatar': gravatar(comment['email']), 'author': comment['name']}))
         if comment['commentid'] != 0:
             html.append(parse(comment, comments))
         html.append("<p>{content}</p></div>".format(**{'content': comment['content']}))
@@ -59,7 +60,7 @@ class GetComments(BaseHandler):
 
 class ShowComments(BaseHandler):
     def get(self, id):
-        newsinfo = self.db.get("select news.id, news.title, news.postedat, news.commentnum, category.name as category, usr.name as author from news left join category on news.categoryid=category.id left join usr on news.author=usr.id where news.id=%s;" % id)
+        newsinfo = self.db.get("select news.id, news.title, news.postedat, news.commentnum, category.name as category, usr.name as author, usr.email as email from news left join category on news.categoryid=category.id left join usr on news.author=usr.id where news.id=%s;" % id)
         comment_num = self.db.get("select count(*) from comment where comment.newsid=%s;" % id)
         self.write(self.serve_template('comment.html', **{'newsinfo': newsinfo, 'comment_num': comment_num['count'], 'xsrf': self.xsrf_form_html()}))
         self.flush()
