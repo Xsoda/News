@@ -51,5 +51,4 @@ class Gravatar(object):
 
        return link
        
-gravatar = Gravatar(size=140, rating='g', default='./../static/image/default.png', force_default=False, force_lower=True)
 

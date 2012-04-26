@@ -5,6 +5,22 @@ from mako.lookup import TemplateLookup
 from mako.exceptions import RichTraceback
 from core.session.session import RedisSession
 
+def authenticated(method):
+    def wrapper(self, *args, **kwargs):
+        if self.get_current_user():
+            return method(self, *args, **kwargs)
+        else:
+            self.redirect(self.get_login_url())
+    return wrapper
+
+def admin(method):
+    def wrapper(self, *args, **kwargs):
+        userinfo = self.get_current_user()
+        if userinfo and int(userinfo['grade']):
+            return method(self, *args, **kwargs)
+        else:
+            self.redirect(self.get_login_url())
+    return wrapper
 
 class BaseHandler(tornado.web.RequestHandler):
     @property

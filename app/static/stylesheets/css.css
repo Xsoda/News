@@ -150,3 +150,15 @@ h3.title {
         position:relative;
         top:1px;
 }
+
+div#userinfo {
+    color: deeppink;
+    float: right;
+    margin: 10px 10px 10px 10px;
+    font-size: 10pt;
+    height: 50px;
+}
+
+a {
+    text-decoration: none;
+}
