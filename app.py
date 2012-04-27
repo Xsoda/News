@@ -54,7 +54,8 @@ class Application(tornado.web.Application):
             (r"/auth/getUserInfo", app.controller.AuthorizedHandler.UserInfo),
             (r"/auth/logout", app.controller.AuthorizedHandler.Logout),
             (r"/~/", app.controller.AdminHandler.Home),
-
+            (r"/data/imgpost", app.controller.AdminHandler.ImgPost),
+            (r"/~/addNews", app.controller.NewsHandler.AddNews),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
 

@@ -4,7 +4,7 @@ __author__ = 'Xsoda'
 from app.controller.Base import BaseHandler, authenticated, admin
 import time
 from core.web.helpers import Gravatar
-gravatar = Gravatar(size=140, rating='g', default='./../static/image/default.png', force_default=False, force_lower=True)
+gravatar = Gravatar(size=140, rating='g', default=None, force_default=False, force_lower=True)
 
 def getCommentById(comments, cid, id):
     for comment in comments:
@@ -25,7 +25,7 @@ def parse(comment, comments):
 def parseCommentsToHtml(comments, pageth):
     html = []
     for comment in comments[(int(pageth) - 1) * 10 : int(pageth) * 10]:
-        html.append('''<div class="comment"><p class="title"><span>{time}</span><img height="50" src="{gravatar}"></img>{author}</p>'''.format(**{'time': comment['postedat'], 'gravatar': gravatar(comment['email']), 'author': comment['name']}))
+        html.append('''<div class="comment"><p class="title"><span>{time}</span><img height="50" src="{gravatar}" onerror="this.src=\'./../static/image/default.png\'"></img>{author}</p>'''.format(**{'time': comment['postedat'], 'gravatar': gravatar(comment['email']), 'author': comment['name']}))
         if comment['commentid'] != 0:
             html.append(parse(comment, comments))
         html.append('<p>{content}<a class="btn" style="float:right;" href="javascript:addQuote({id})">引用评论</a></p></div>'.format(**{'content': comment['content'], 'id': comment['id']}))

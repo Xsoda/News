@@ -1,6 +1,6 @@
 # *_* code: utf-8 *_*
 
-from app.controller.Base import BaseHandler
+from app.controller.Base import BaseHandler, admin
 
 class ShowNews(BaseHandler):
     def get(self, id):
@@ -9,3 +9,13 @@ class ShowNews(BaseHandler):
             self.write(self.serve_template("news.html", **{'news':news}))
         else:
             self.write("get news fail. news id is %s." % id)
+
+class AddNews(BaseHandler):
+    @admin
+    def get(self):
+        category = self.db.query("select * from category where parentid=0;")
+        self.write(self.serve_template("admin/addnews.html", **{'category': category}))
+
+    @admin
+    def post(self):
+        pass
