@@ -2,6 +2,8 @@
 __author__ = 'Xsoda'
 
 import time
+import random
+import string
 from app.controller.Base import BaseHandler, admin
 
 class Home(BaseHandler):
@@ -18,9 +20,11 @@ class ImgPost(BaseHandler):
     @admin
     def post(self):
         if self.request.files:
-            f = self.request.files['file1'][0]
+            f =  self.request.files['myfile'][0]
             original_fname = f['filename']
             final_fname = str(int(time.time())) + ''.join(random.choice(string.ascii_lowercase) for x in range(4)) +  '.'+ original_fname.split('.').pop()
-            output_file = open("uploads/" + final_fname, 'w')
-            output_file = write(f['body'])
-            self.finish("file" + final_fname + " is upload")
+            output_file = open("app/static/uploads/" + final_fname, 'wb')
+            output_file.write(f['body'])
+            output_file.close()
+            self.write("/static/uploads/" + final_fname)
+        self.finish()

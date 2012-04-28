@@ -1,5 +1,5 @@
 <%def name="pagination(item_num, category, categoryid)">
-%if int(item_num) > 1:
+%if int(item_num) >= 1:
   <a id="/data/${category}_${categoryid}_1" class="page active" onClick="javascript:pageJump($(this));">1</a>
   %for i in range(2, (item_num + 9) // 10 + 1):
   <a id="/data/${category}_${categoryid}_${i}" class="page" onClick="javascript:pageJump($(this));">${i}</a>

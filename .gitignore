@@ -1,3 +1,4 @@
 # git ignore file
 *.pyc
 app/view/mako_moudle/*.py
+app/static/uploads/*.*
