@@ -5,12 +5,21 @@
     <title><%block name="title"/></title>
     <link rel="stylesheet" href="../static/stylesheets/css.css" type="text/css" />
     <script type="text/javascript" src="../static/javascripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+      $.get("/auth/getUserInfo", function (html) {
+      $("div#userinfo").append(html);
+      });
+      })
+    </script>
     <%block name="jsfile"/>
   </head>
   <body>
     <div id="container">
       <div id="header">
-        <h1>PPTM News</h1>
+        <h1>PPTM News
+        <div id="userinfo">
+        </div></h1>
       </div>
       <%block name="nav"/>
       <div id="content">

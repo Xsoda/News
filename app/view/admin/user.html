@@ -1,0 +1,91 @@
+<%inherit file="base.html" />
+<%block name="navigation">
+<ul id="navigation">
+  <li><a href="#">新闻管理</a></li>
+  <li><span class="active">用户管理</span></li>
+</ul>
+</%block>
+                
+<div id="content" class="container_16 clearfix">
+  <div class="grid_4">
+    <p>
+      <label>用户名<small>数字和字母</small></label>
+      <input type="text" />
+    </p>
+  </div>
+  <div class="grid_5">
+    <p>
+      <label>电子邮件</label>
+      <input type="text" />
+    </p>
+  </div>
+  <!--
+  <div class="grid_5">
+    <p>
+      <label>Department</label>
+      <select>
+        <option>Development</option>
+        <option>Marketing</option>
+        <option>Design</option>
+        <option>IT</option>
+      </select>
+    </p>
+  </div>
+  -->
+  <div class="grid_2">
+    <p>
+      <label>&nbsp;</label>
+      <input type="submit" value="搜索" />
+    </p>
+  </div>
+  <div class="grid_16">
+    <table>
+      <thead>
+        <tr>
+          <th>用户名</th>
+          <th>电子邮件</th>
+          <th>用户权限</th>
+          <th colspan="2" width="10%">Actions</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="pagination">
+            <span class="active curved">1</span><a href="#" class="curved">2</a><a href="#" class="curved">3</a><a href="#" class="curved">4</a> ... <a href="#" class="curved">10 million</a>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <%
+           flag = True
+        %>
+        %for user in userlist:
+        %if flag == True:
+        <tr class="alt">
+          %else:
+        <tr>
+          %endif
+          <td>${user['name']}</td>
+          <td>${user['email']}</td>
+          <td>
+            %if int(user['grade']) == 0:
+                 普通用户
+            %else:
+                 管理员
+            %endif
+          </td>
+          <td><a href="#" class="edit">Edit</a></td>
+          <td><a href="/~/deluser_${user['id']}" class="delete">Delete</a></td>
+        </tr>
+        <%
+           flag = ~flag
+        %>
+        %endfor
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<div id="foot">
+  <a href="#">Contact Me</a>
+</div>

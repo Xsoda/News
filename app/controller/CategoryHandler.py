@@ -2,15 +2,6 @@
 
 from app.controller.Base import BaseHandler
 
-def printnum(num):
-    postfix = ('st', 'nd', 'rd')
-    try:
-        ret = postfix[(int(num) - 1) % 10]
-    except Exception:
-        ret = 'th'
-    finally:
-        return str(num) + ret
-
 class GetCategory(BaseHandler):
     def get(self, selected):
         category = self.db.query("select * from category where parentId = 0;")

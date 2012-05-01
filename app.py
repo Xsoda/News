@@ -51,7 +51,13 @@ class Application(tornado.web.Application):
             (r"/data/addComment", app.controller.CommentHandler.AddComment), # 添加评论，<POST>
             (r"/auth/login", app.controller.AuthorizedHandler.Login),
             (r"/auth/register", app.controller.AuthorizedHandler.Register),
-
+            (r"/auth/getUserInfo", app.controller.AuthorizedHandler.UserInfo),
+            (r"/auth/logout", app.controller.AuthorizedHandler.Logout),
+            (r"/~/", app.controller.AdminHandler.Home),
+            (r"/data/imgpost", app.controller.AdminHandler.ImgPost),
+            (r"/~/addNews", app.controller.NewsHandler.AddNews),
+            (r"/~/user", app.controller.UserHandler.UserList),
+            (r"/~/deluser_(\d+)", app.controller.UserHandler.DelUser),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
 

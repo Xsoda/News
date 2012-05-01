@@ -4,7 +4,24 @@ from mako.template import Template
 from mako.lookup import TemplateLookup
 from mako.exceptions import RichTraceback
 from core.session.session import RedisSession
+import markdown
 
+def authenticated(method):
+    def wrapper(self, *args, **kwargs):
+        if self.get_current_user():
+            return method(self, *args, **kwargs)
+        else:
+            self.redirect(self.get_login_url())
+    return wrapper
+
+def admin(method):
+    def wrapper(self, *args, **kwargs):
+        userinfo = self.get_current_user()
+        if userinfo and int(userinfo['grade']):
+            return method(self, *args, **kwargs)
+        else:
+            self.redirect(self.get_login_url())
+    return wrapper
 
 class BaseHandler(tornado.web.RequestHandler):
     @property
@@ -13,6 +30,13 @@ class BaseHandler(tornado.web.RequestHandler):
    
     def get_current_user(self):
         return self.session['user'] if self.session and 'user' in self.session else None
+
+    @property
+    def markdown(self):
+        if hasattr(self, '_markdown'):
+            return self._markdown
+        else:
+            self._markdown = markdown.Markdown()
 
     @property
     def session(self):
