@@ -37,6 +37,13 @@ class BaseHandler(tornado.web.RequestHandler):
             return self._markdown
         else:
             self._markdown = markdown.Markdown()
+        return self._markdown
+
+    def isAdmin(self):
+        if hasattr(self, 'current_user'):
+            if int(self.current_user['grade']) == 1:
+                return True
+        return False
 
     @property
     def session(self):

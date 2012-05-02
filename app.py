@@ -58,6 +58,7 @@ class Application(tornado.web.Application):
             (r"/~/addNews", app.controller.NewsHandler.AddNews),
             (r"/~/user", app.controller.UserHandler.UserList),
             (r"/~/deluser_(\d+)", app.controller.UserHandler.DelUser),
+            (r"/~/delComment_(\d+)", app.controller.CommentHandler.DelComment),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
 

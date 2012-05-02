@@ -77,5 +77,16 @@ PPTM News
   $("div#quote").append("引用 #" + id + " 的评论.");
   $("input#comment_parent").attr("value", id);
   }
+
+  function delComment(id) {
+  $.get("/~/delComment_" + id, function (html) {
+  if(html == "done") {
+  alert("评论删除成功");
+  $("div#" + id).empty()
+  } else {
+  alert("评论删除失败")
+  }
+  });
+  }
 </script>
 %endif
