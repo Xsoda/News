@@ -81,10 +81,10 @@ PPTM News
   function delComment(id) {
   $.get("/~/delComment_" + id, function (html) {
   if(html == "done") {
-  alert("评论删除成功");
+  displayMessage("评论删除成功");
   $("div#" + id).empty()
   } else {
-  alert("评论删除失败")
+  displayMessage("评论删除失败")
   }
   });
   }
