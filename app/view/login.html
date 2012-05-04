@@ -9,20 +9,36 @@ PPTM News
 
 <h1 class="title">登录</h1>
 <div class="notice">
+  <form id="login" action="#" method="post">
     <table>
       <tr><td>用户名:</td><td><input type="text" name="user_name" id="user_name"></td></tr>
       <tr><td>密码:</td><td><input type="password" name="user_password" id="user_password"></td></tr>
-      <tr><td><input type="submit" value="登录" onClick="javascript:Login();"></td><td><input type="reset" value="重置"></td></tr>
+      <tr><td><input type="submit" value="登录"><td><input type="reset" value="重置"></td></tr>
       ${xsrf}
     </table>
+  </form>
 </div>
 <script type="text/javascript">
-  function Login(){
-  $.post("#", {user_name: $("#user_name").val(), user_password: $("user_password").val(), _xsrf: $("_xsrf").val()},
-  function (data) {
-  if (data == "done") {displayMessage("登录成功");}
-  else {displayMessage("登录失败")}
+  $(document).ready(function(){
+  $("#login").live("submit", function(){
+  Login($(this));
+  return false;
+  });
+  });
+
+  function Login(form) {
+  var args = form.formToDict();
+  var disabled = form.find("input[type=submit]");
+  disabled.disable();
+  $.postJSON("#", args, function(response) {
+  if(response == "done"){
+  displayMessage("登录成功");
+  top.location="/";
   }
-  );
+  else{
+  displayMessage("登录失败");
+  disabled.enable();
+  }
+  });
   }
 </script>

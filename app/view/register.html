@@ -9,7 +9,7 @@ PPTM News
 
 <h1 class="title">注册</h1>
 <div class="notice">
-  <form action="/auth/register" method="post">
+  <form action="/auth/register" method="post" id="register">
     <table>
       <tr><td>用户名:</td><td><input type="text" name="user_name"></td></tr>
       <tr><td>密码:</td><td><input type="password" name="user_password"></td></tr>
@@ -20,3 +20,27 @@ PPTM News
     </table>
   </form>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+  $("#register").live("submit", function(){
+  register($(this));
+  return false;
+  });
+  });
+
+  function register(form){
+  var args = form.formToDict();
+  var disabled = form.find("input[type=submit]");
+  $.postJSON("#", args, function(response){
+  if(response == "done") {
+  displayMessage("注册成功");
+  top.location="/auth/login";
+  }else if (response == "db error") {
+  displayMessage("该用户名或邮箱已经注册");
+  }else{
+  displayMessage("注册失败");
+  }
+  });
+  }
+</script>

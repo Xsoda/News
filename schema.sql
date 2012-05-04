@@ -29,6 +29,8 @@ create table news( -- 新闻表
        categoryId bigint not null, -- 分类Id
        title varchar(255) not null, -- 标贴
        content varchar(10000) not null, -- 内容
+       summary varchar(255) not null, -- 概要
+       doc varchar(255) not null default 'Markdown', -- 格式, 预计支持 Markdown, reStructuredText, HTML, Textile四种格式
        source varchar(255) null, -- 来源
        author bigint not null, -- 编辑
        postedAt timestamp not null, -- 发布日期
