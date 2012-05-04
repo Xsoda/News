@@ -42,25 +42,23 @@ PPTM News
 <h3 class="title">发表评论</h3>
 <p class="notice">发表评论请客观、公正，请文明用语。</p>
 <div class="notice" id="quote"></div>
-<form action="/data/addComment" method="post" id="commentform" name="commentform">
-  <p>
+<form id="commentform">
     <textarea name="comment" id="comment" cols="90%" rows="10" tabindex="4"></textarea>
-  </p>
-  <p>
-    <input name="submit" type="submit" id="submit" class="btn f-submit" tabindex="5" value="提交评论">
     <input type="hidden" name="comment_post_id" value="${newsinfo['id']}">
     <input type="hidden" name="comment_parent" id="comment_parent" value="0">
     ${xsrf}
-  </p>
-</form>
+    <input type="submit" value="提交评论">
 %endif
-%if comment_num:
 <script type="text/javascript">
   $(document).ready(function () {
+  %if comment_num:
   var url = $("a.active").attr("id");
   $.get(url, function (html) {
   $("div#commentsHolder").append(html);
   });
+  %endif
+
+  $("#commentform").live("submit", function(){addComment($(this));return false;});
   });
   
   function pageJump(obj) {
@@ -71,11 +69,37 @@ PPTM News
            $("div#commentsHolder").append(html);
       });
   }
+  
+  function delComment(id) {
+  $.get("/~/delComment_" + id, function (html) {
+  if(html == "done") {
+  displayMessage("评论删除成功");
+  $("div#" + id).empty()
+  } else {
+  displayMessage("评论删除失败")
+  }
+  });
+  }
 
   function addQuote(id){
   $("div#quote").empty();
   $("div#quote").append("引用 #" + id + " 的评论.");
   $("input#comment_parent").attr("value", id);
   }
+
+  function addComment(form) {
+  var args = form.formToDict();
+  var disabled = form.find("input[type=submit]");
+  disabled.disable();
+  $.postJSON("/data/addComment", args, function(response){
+  if(response == "done") {
+  displayMessage("评论成功");
+  location.reload();
+  disabled.disable();
+  }else{
+  displayMessage("评论失败");
+  disabled.enable();
+  }
+  });
+  }
 </script>
-%endif
