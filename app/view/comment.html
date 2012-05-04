@@ -42,25 +42,23 @@ PPTM News
 <h3 class="title">发表评论</h3>
 <p class="notice">发表评论请客观、公正，请文明用语。</p>
 <div class="notice" id="quote"></div>
-<form method="post" id="commentform" name="commentform" action="/data/addComment">
-  <p>
+<form id="commentform">
     <textarea name="comment" id="comment" cols="90%" rows="10" tabindex="4"></textarea>
-  </p>
-  <p>
-    <input type="submit" value="提交评论">
     <input type="hidden" name="comment_post_id" value="${newsinfo['id']}">
     <input type="hidden" name="comment_parent" id="comment_parent" value="0">
     ${xsrf}
-  </p>
-</form>
+    <input type="submit" value="提交评论">
 %endif
-%if comment_num:
 <script type="text/javascript">
   $(document).ready(function () {
+  %if comment_num:
   var url = $("a.active").attr("id");
   $.get(url, function (html) {
   $("div#commentsHolder").append(html);
   });
+  %endif
+
+  $("#commentform").live("submit", function(){addComment($(this));return false;});
   });
   
   function pageJump(obj) {
@@ -88,32 +86,20 @@ PPTM News
   $("div#quote").append("引用 #" + id + " 的评论.");
   $("input#comment_parent").attr("value", id);
   }
-</script>
-%endif
-<script type="text/javascript">
-  $(document).ready(function(){
-  $("#commentform").live("submit", function(){
-  addComment($(this));
-  return false;
-  });
-  alert("addlive");
-  });
 
-  function addComment(form){
+  function addComment(form) {
   var args = form.formToDict();
   var disabled = form.find("input[type=submit]");
-  disabled.disabled();
-  alert("addcomment");
+  disabled.disable();
   $.postJSON("/data/addComment", args, function(response){
-  alert(response);
   if(response == "done") {
   displayMessage("评论成功");
-  document.URL = location.href;
+  location.reload();
+  disabled.disable();
   }else{
   displayMessage("评论失败");
   disabled.enable();
   }
   });
   }
-
 </script>
