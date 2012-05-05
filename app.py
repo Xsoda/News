@@ -56,6 +56,7 @@ class Application(tornado.web.Application):
             (r"/~/", app.controller.AdminHandler.Home),
             (r"/data/imgpost", app.controller.AdminHandler.ImgPost),
             (r"/~/addNews", app.controller.NewsHandler.AddNews),
+            (r"/~/preview", app.controller.NewsHandler.Preview),
             (r"/~/user", app.controller.UserHandler.UserList),
             (r"/~/deluser_(\d+)", app.controller.UserHandler.DelUser),
             (r"/~/delComment_(\d+)", app.controller.CommentHandler.DelComment),

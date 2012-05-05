@@ -12,6 +12,12 @@ class ShowNews(BaseHandler):
         else:
             self.write("get news fail. news id is %s." % id)
 
+class Preview(BaseHandler):
+    @admin
+    def post(self):
+        content = self.get_argument('content', None)
+        self.write(self.markdown.convert(content))
+
 class AddNews(BaseHandler):
     @admin
     def get(self):
