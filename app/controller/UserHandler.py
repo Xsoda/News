@@ -16,4 +16,12 @@ class DelUser(BaseHandler):
             self.write('done')
         else:
             self.write('undone')
-        
+
+class EditUser(BaseHandler):
+    @admin
+    def get(BaseHandler):
+        pass
+
+    @admin
+    def post(BaseHandler):
+        pass

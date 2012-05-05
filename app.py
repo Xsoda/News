@@ -56,9 +56,16 @@ class Application(tornado.web.Application):
             (r"/~/", app.controller.AdminHandler.Home),
             (r"/data/imgpost", app.controller.AdminHandler.ImgPost),
             (r"/~/addNews", app.controller.NewsHandler.AddNews),
+            (r"/~/editNews_(\d+)", app.controller.NewsHandler.EditNews),
+            (r"/~/delNews_(\d+)", app.controller.NewsHandler.DelNews),
             (r"/~/preview", app.controller.NewsHandler.Preview),
             (r"/~/user", app.controller.UserHandler.UserList),
+            (r"/~/addCategory", app.controller.CategoryHandler.EditCategory),
+            ("r/~/delCategory_(\d+)", app.controller.CategoryHandler.DelCategory),
+            ("r/~/editCategory_(\d+)", app.controller.CategoryHandler.EditCategory),
             (r"/~/deluser_(\d+)", app.controller.UserHandler.DelUser),
+            (r"/~/editnews_(\d+)", app.controller.NewsHandler.EditNews),
+            (r"/~/edituser_(\d+)", app.controller.UserHandler.EditUser),
             (r"/~/delComment_(\d+)", app.controller.CommentHandler.DelComment),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)

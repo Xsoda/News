@@ -24,3 +24,26 @@ class CategoryNews(BaseHandler):
             self.write(self.serve_template("newslist.html", **{'newses': newses, 'position': newses[0]['category'], 'pages': int(pages['count']), 'page':pageth, 'categoryid': id}))
         else:
             self.write(self.serve_template("newslist.html", **{'newses': None, 'position': category['name'], 'newses': None, 'pages': None, 'page': None, 'categoryid': id}))
+
+class AddCategory(BaseHandler):
+    @admin
+    def get(self):
+        pass
+
+    @admin
+    def post(self):
+        pass
+
+class DelCategory(BaseHandler):
+    @admin
+    def get(self, id):
+        pass
+
+class EditCategory(BaseHandler):
+    @admin
+    def get(self, id):
+        pass
+
+    @admin
+    def post(self, id):
+        pass

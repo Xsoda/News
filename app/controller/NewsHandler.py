@@ -35,3 +35,17 @@ class AddNews(BaseHandler):
             self.write('done')
         else:
             self.write('undone')
+
+class EditNews(BaseHandler):
+   @admin
+   def get(self, id):
+       pass
+
+   @admin
+   def post(self, id):
+       pass
+
+class DelNews(BaseHandler):
+    @admin
+    def get(self, id):
+        pass
