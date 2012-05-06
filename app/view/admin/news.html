@@ -1,0 +1,79 @@
+<%inherit file="base.html" />
+<%block name="navigation">
+<ul id="navigation">
+  <li><span class="active">新闻管理</span></li>
+  <li><a href="/~/user">用户管理</a></li>
+  <li><a href="/~/category">分类管理</a></li>
+</ul>
+</%block>
+                
+<div id="content" class="container_16 clearfix">
+  <div class="grid_4">
+    <p>
+      <label>新闻分类</label>
+      <select id="category">
+        %for c in category:
+        <option value="${c['id']}">${c['name']}</option>
+        %endfor
+      </select>
+    </p>
+  </div>
+  <div class="grid_2">
+    <p>
+      <label>&nbsp;</label>
+      <input type="submit" value="获取新闻" id="getcategory"/>
+    </p>
+  </div>
+  <div class="grid_4">
+    <p>
+      <label>添加新闻</label>
+      <input type="submit" value="添加新闻" id="addNews" />
+    </p>
+  </div>
+  <div class="grid_16">
+    <table>
+      <thead>
+        <tr>
+          <th>标题</th>
+          <th>编辑</th>
+          <th>时间</th>
+          <th colspan="2" width="20%">Actions</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td></td>
+        </tr>
+      </tfoot>
+      <tbody id="tbody">
+      </tbody>
+      </table>
+    </div>
+  </div>
+
+<div id="foot">
+  <a href="#">Contact Me</a>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $("#getcategory").live("click", function(){
+  $.get('/~/newsList_' + $("#category").attr("value"), function(response){
+  $("#tbody").html(response);
+  });
+  });
+  $("#addNews").live("click", function(){
+  window.open("/~/addNews");
+  });
+  });
+  function delNews(id) {
+  $.get("/~/delNews_" + id, function(response) {
+  if (response == "done"){
+  displayMessage("新闻删除成功");
+  $("#getcategory").click();
+  } else {
+  displayMessage("新闻删除失败");
+  }
+  });
+  return false;
+  }
+</script>

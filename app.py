@@ -60,13 +60,15 @@ class Application(tornado.web.Application):
             (r"/~/delNews_(\d+)", app.controller.NewsHandler.DelNews),
             (r"/~/preview", app.controller.NewsHandler.Preview),
             (r"/~/user", app.controller.UserHandler.UserList),
-            (r"/~/addCategory", app.controller.CategoryHandler.EditCategory),
-            ("r/~/delCategory_(\d+)", app.controller.CategoryHandler.DelCategory),
-            ("r/~/editCategory_(\d+)", app.controller.CategoryHandler.EditCategory),
-            (r"/~/deluser_(\d+)", app.controller.UserHandler.DelUser),
-            (r"/~/editnews_(\d+)", app.controller.NewsHandler.EditNews),
-            (r"/~/edituser_(\d+)", app.controller.UserHandler.EditUser),
+            (r"/~/category", app.controller.CategoryHandler.AdminCategory),
+            (r"/~/addCategory", app.controller.CategoryHandler.AddCategory),
+            (r"/~/delCategory_(\d+)", app.controller.CategoryHandler.DelCategory),
+            (r"/~/editCategory_(\d+)", app.controller.CategoryHandler.EditCategory),
+            (r"/~/delUser_(\d+)", app.controller.UserHandler.DelUser),
+            (r"/~/editNews_(\d+)", app.controller.NewsHandler.EditNews),
+            (r"/~/editNser_(\d+)", app.controller.UserHandler.EditUser),
             (r"/~/delComment_(\d+)", app.controller.CommentHandler.DelComment),
+            (r"/~/newsList_(\d+)", app.controller.NewsHandler.NewsList),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
 

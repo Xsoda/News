@@ -5,6 +5,7 @@ from mako.lookup import TemplateLookup
 from mako.exceptions import RichTraceback
 from core.session.session import RedisSession
 import markdown
+from docutils.core import publish_parts
 
 def authenticated(method):
     def wrapper(self, *args, **kwargs):
@@ -34,10 +35,13 @@ class BaseHandler(tornado.web.RequestHandler):
     @property
     def markdown(self):
         if hasattr(self, '_markdown'):
-            return self._markdown
+            return self._markdown.convert
         else:
             self._markdown = markdown.Markdown()
-        return self._markdown
+        return self._markdown.convert
+
+    def reStructuredText(self, rst):
+        return publish_parts(rst, writer_name="html")
 
     def isAdmin(self):
         if hasattr(self, 'current_user'):

@@ -84,6 +84,18 @@ alter table newstag add constraint fk_newstag_tag_1 foreign key (tagId) referenc
 create index ix_newstag_news_1 on newstag(newsId);
 create index ix_newstag_tag_1 on newstag(tagId);
 
+create or replace function delCategory(integer) returns void as $$
+declare
+    news record;
+begin
+    for news in (select * from news where categoryid=$1) loop
+        delete from comment where newsid=news.id;
+    end loop;
+    delete from news where categoryid=$1;
+    delete from category where id=$1;
+    return;
+end;
+$$ language plpgsql;
 -- Add Data !
 insert into category(id, name, parentId) values(100, '国内', 0);
 insert into category(id, name, parentId) values(101, '国际', 0);

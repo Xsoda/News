@@ -47,7 +47,7 @@ class GetComments(BaseHandler):
         if comment['commentid'] != 0:        
             if comment:
                 html.append(self._parse(comment, comments))
-        html.append('''<span>{author}</span><br />{content}</div>'''.format(**{'author': comment['name'], 'content': self.markdown.convert(comment['content'])}))
+        html.append('''<span>{author}</span><br />{content}</div>'''.format(**{'author': comment['name'], 'content': self.markdown(comment['content'])}))
         return ''.join(html)
 
     def _parseCommentsToHtml(self, comments, pageth):
@@ -56,7 +56,7 @@ class GetComments(BaseHandler):
             html.append('''<div class="comment" id="{id}"><p class="title"><span>{time}</span><img height="50" src="{gravatar}" onerror="this.src=\'./../static/image/default.png\'"></img>{author}</p>'''.format(**{'id': comment['id'], 'time': comment['postedat'], 'gravatar': gravatar(comment['email']), 'author': comment['name']}))
             if comment['commentid'] != 0:
                 html.append(self._parse(comment, comments))
-            html.append('<p>{content}{del}<a class="btn" style="float:right;" href="javascript:addQuote({id})">引用评论</a></p></div>'.format(**{'content': self.markdown.convert(comment['content']), 'id': comment['id'], 'del': '<a class="btn" style="float:right;" href="javascript:delComment(' + str(comment['id']) + ');">删除评论</a>' if self.isAdmin() else ''}))
+            html.append('<p>{content}{del}<a class="btn" style="float:right;" href="javascript:addQuote({id})">引用评论</a></p></div>'.format(**{'content': self.markdown(comment['content']), 'id': comment['id'], 'del': '<a class="btn" style="float:right;" href="javascript:delComment(' + str(comment['id']) + ');">删除评论</a>' if self.isAdmin() else ''}))
         return ''.join(html)
 
 class ShowComments(BaseHandler):
