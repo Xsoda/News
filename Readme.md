@@ -11,11 +11,21 @@
   * [redis 2.4.5 (for windows)](https://github.com/dmajkic/redis.git)
   * [redis-py](https://github.com/dcolish/redis-py.git)
   * [anyjson](http://pypi.python.org/pypi/anyjson/0.3.1)
+  * [doctuils]()
+  * [Markdown]()
   
 ## 参考
   * [session redis](http://tornadogists.org/1735032/) 原文使用 pickle 序列化，现改为JSON。
+  * [Admin Template]() 本系统后台完全使用其代码模板
   
 ## 开发日志
+  * [2012-05-07 01:34:01]
+    - 预计功能全部已经完成
+    - 计划添加
+      1. 添加新闻与修改新闻时支持更多的语法(目前仅支持Markdown)
+      2. 管理后台显示当前登录的用户与用户头像
+      3. 新闻的Tag管理
+      4. 新闻概要的显示(目前仅在数据库中添加了字段)
   * [2012-04-25 16:07:07]
     - 修正评论分页的显示问题
     - 添加Gravatar的评论头像

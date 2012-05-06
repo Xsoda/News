@@ -96,6 +96,16 @@ begin
     return;
 end;
 $$ language plpgsql;
+
+create or replace function delUser(integer) returns void as $$
+begin
+    delete from comment where authorId=$1;
+    delete from news where author=$1;
+    delete from usr where id=$1;
+    return;
+end;
+$$ language plpgsql;
+
 -- Add Data !
 insert into category(id, name, parentId) values(100, '国内', 0);
 insert into category(id, name, parentId) values(101, '国际', 0);

@@ -66,7 +66,7 @@ class Application(tornado.web.Application):
             (r"/~/editCategory_(\d+)", app.controller.CategoryHandler.EditCategory),
             (r"/~/delUser_(\d+)", app.controller.UserHandler.DelUser),
             (r"/~/editNews_(\d+)", app.controller.NewsHandler.EditNews),
-            (r"/~/editNser_(\d+)", app.controller.UserHandler.EditUser),
+            (r"/~/editUser_(\d+)", app.controller.UserHandler.EditUser),
             (r"/~/delComment_(\d+)", app.controller.CommentHandler.DelComment),
             (r"/~/newsList_(\d+)", app.controller.NewsHandler.NewsList),
         ]
