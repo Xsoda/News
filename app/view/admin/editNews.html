@@ -89,7 +89,8 @@
   <li><a href="/~/category">分类管理</a></li>
 </ul>
 </%block>
-
+                
+<div id="content" class="container_16 clearfix">
 <div class="grid_16">
   <h2>修改新闻</h2>
 </div>
@@ -125,7 +126,7 @@
   <div class="grid_16">
     <p>
       <label>新闻概要<small>将在新闻列表中显示.</small></label>
-      <textarea name="summary" value="summary"></textarea>
+      <textarea name="summary" value="summary">${news['summary']}</textarea>
     </p>
   </div>
   <div class="grid_3" id="dropbox">
@@ -135,7 +136,24 @@
  </div>
   <div class="grid_16">
     <p>
-      <label>新闻内容<small>Markdown 语法.</small></label>
+      <label>新闻内容<small>语法格式:
+          <select name="doc">
+          %if news['doc'] == "Markdown":
+          <option value="Markdown" selected="selected">Markdown</option>
+          %else:
+          <option value="Markdown">Markdown</option>
+          %endif
+          %if news['doc'] == "reStructruedText":
+          <option value="reStructruedText" selected="selected">reStructuredText</option>
+          %else:
+          <option value="reStructruedText">reStructruedText</option>
+          %endif
+          %if news['doc'] == "html":
+          <option value="html" selected="selected">html</option>
+          %else:
+          <option value="html">html</option>
+          %endif
+      </small></label>
       <textarea name="content" class="big">${news['content']}</textarea>
     </p>
     <p class="submit">
@@ -147,4 +165,5 @@
   </div>
 </div>
 <div id="inline" style="width:800px;display: none;">
+</div>
 </div>
