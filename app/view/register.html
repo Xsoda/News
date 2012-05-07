@@ -23,24 +23,24 @@ PPTM News
 
 <script type="text/javascript">
   $(document).ready(function () {
-  $("#register").live("submit", function(){
-  register($(this));
-  return false;
-  });
+    $("#register").live("submit", function(){
+      register($(this));
+      return false;
+    });
   });
 
   function register(form){
-  var args = form.formToDict();
-  var disabled = form.find("input[type=submit]");
-  $.postJSON("#", args, function(response){
-  if(response == "done") {
-  displayMessage("注册成功");
-  top.location="/auth/login";
-  }else if (response == "db error") {
-  displayMessage("该用户名或邮箱已经注册");
-  }else{
-  displayMessage("注册失败");
-  }
-  });
+    var args = form.formToDict();
+    var disabled = form.find("input[type=submit]");
+    $.postJSON("#", args, function(response){
+      if(response == "done") {
+        displayMessage("注册成功");
+        top.location="/auth/login";
+      }else if (response == "db error") {
+        displayMessage("该用户名或邮箱已经注册");
+      }else{
+        displayMessage("注册失败");
+      }
+    });
   }
 </script>

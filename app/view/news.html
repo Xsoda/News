@@ -13,32 +13,32 @@ PPTM News
 
 %if news:
 
-<h1>${news['title']}</h1>
+  <h1>${news['title']}</h1>
 
-<div class="notice" style="color:#666;text-align:center;">
-  发布时间: ${news['postedat']}   |    编辑: ${news['author']}    |    评论:
-  %if news['commentnum']:
-  ${news['commentnum']}
-  %else:
-  0
-  %endif
-</div>
+  <div class="notice" style="color:#666;text-align:center;">
+    发布时间: ${news['postedat']}   |    编辑: ${news['author']}    |    评论:
+    %if news['commentnum']:
+    ${news['commentnum']}
+    %else:
+    0
+    %endif
+  </div>
 
-<div class="box">
-  ${news['content']}
-</div>
+  <div class="box">
+    ${news['content']}
+  </div>
 
-<div class="notice">
- <strong>
-   %if news['commentnum']:
-   <a href="/comments_${news['id']}">${news['commentnum']} 位网友发表了自己的评论, 点击查看评论.</a>
-   %else:
-  <a href="/comments_${news['id']}">暂时还没有网友对此评论. 点击发表评论. </a>
-   %endif
- </strong>
-</div>
+  <div class="notice">
+   <strong>
+     %if news['commentnum']:
+        <a href="/comments_${news['id']}">${news['commentnum']} 位网友发表了自己的评论, 点击查看评论.</a>
+     %else:
+        <a href="/comments_${news['id']}">暂时还没有网友对此评论. 点击发表评论. </a>
+     %endif
+   </strong>
+  </div>
 %else:
-<div class="box" style="color: red;">
- <h1>404</h1>
-</div>
+  <div class="box" style="color: red;">
+   <h1>404</h1>
+  </div>
 %endif

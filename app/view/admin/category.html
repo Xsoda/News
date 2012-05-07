@@ -12,27 +12,55 @@
 <link rel="stylesheet" type="text/css" href="../../static/stylesheets/jquery.fancybox.css" media="screen" />
 <script type="text/javascript">
   function addCategory(form) {
-  var args = form.formToDict($("#addform"));
-  $.postJSON("/~/addCategory", args, function(response){
-  if(response=='done'){displayMessage("分类添加成功");}
-  else{dispalyMessage("分类添加失败");}
-  });
+    var args = form.formToDict($("#addform"));
+    $.postJSON("/~/addCategory", args, function(response){
+      if(response=='done') { 
+        displayMessage("分类添加成功");
+      } else {
+        dispalyMessage("分类添加失败");
+      }
+    });
   }
 
   function delCategory(id) {
-  if(confirm("删除分类会删除此分类下的所有新闻与新闻所属的评论, 确定要删除么?")) {
-  $.get("/~/delCategory_" + id, function(response){
-  if(response=="done"){displayMessage("删除分类成功");location.reload();}
-  else{displayMessage("分类删除失败");}
-  });
+    if(confirm("删除分类会删除此分类下的所有新闻与新闻所属的评论, 确定要删除么?")) {
+      $.get("/~/delCategory_" + id, function(response){
+        if(response=="done"){
+          displayMessage("删除分类成功");
+          location.reload();
+        }else{
+          displayMessage("分类删除失败");
+        }
+      });
+    }
   }
+
+  function editCategory(form) {
+    var args = form.formToDict();
+    $.postJSON(form.attr("action"), args, function(response){
+      if(response == "done") {
+        displayMessage("分类修改成功");
+      } else {
+        displayMessage("分类修改失败");
+      }
+    });
   }
+
   $(document).ready(function(){
-  $('.fancybox').fancybox();
-  $('#addform').live("submit", function(){
-  addCategory($(this));
-  return false;
-  });
+    $('.fancybox').fancybox();
+    $('.fancybox').live("click", function(){
+      $.get("/~/" + $(this).attr("id"), function(response) {
+        $("#editform").html(response);
+      });
+    });
+    $('#addform').live("submit", function(){
+      addCategory($(this));
+      return false;
+    });
+    $("#editcategory").live("submit", function(){
+      editCategory($(this));
+      return false;
+    });
   });
 </script>
 </%block>                
@@ -78,7 +106,7 @@
           %endif
           <td>${c['id']}</td>
           <td>${c['name']}</td>
-          <td><a href="#" class="edit">编辑</a></td>
+          <td><a href="#editform" title="分类名称修改" class="fancybox edit" id="editCategory_${c['id']}">编辑</a></td>
           <td><a href="javascript:delCategory(${c['id']});" class="delete">删除</a></td>
         </tr>
         <%
@@ -92,4 +120,6 @@
 
 <div id="foot">
   <a href="#">Contact Me</a>
+</div>
+<div id="editform">
 </div>

@@ -5,7 +5,7 @@ from app.controller.Base import admin
 
 class GetCategory(BaseHandler):
     def get(self, selected):
-        category = self.db.query("select * from category where parentId = 0;")
+        category = self.db.query("select * from category where parentId = 0 order by id asc;")
         html = []
         html.append('<ul class="menu_tabbed">')
         for c in category:
@@ -47,14 +47,31 @@ class DelCategory(BaseHandler):
 class EditCategory(BaseHandler):
     @admin
     def get(self, id):
-        pass
-
+        category = self.db.get("select * from category where id=%s;", *(id,))
+        category['xsrf'] = self.xsrf_form_html()
+        html = '''
+        <form method="post" id="editcategory" action="/~/editCategory_{id}">
+          <table>
+            <tr><td>分类名称:</td><td><input type="text" name="category_name" value="{name}"/></input></td></tr>
+            <tr><td>{xsrf}
+            <input type="hidden" value="{id}" name="category_id" />
+            </td><td><input type="submit" value="确认修改" /></td></tr>
+          </table>
+        </form>
+        '''.format(**category)
+        self.write(html)
+        
     @admin
     def post(self, id):
-        pass
-
+        category_id = self.get_argument("category_id")
+        category_name = self.get_argument("category_name")
+        if category_name and self.db.execute_rowcount("update category set name=%s where id=%s;", *(category_name, category_id)):
+            self.write("done")
+        else:
+            self.write("undone")
+            
 class AdminCategory(BaseHandler):
     @admin
     def get(self):
-        category = self.db.query("select * from category;")
+        category = self.db.query("select * from category order by id asc;")
         self.write(self.serve_template("admin/category.html", **{'category': category, 'xsrf': self.xsrf_form_html()}))

@@ -30,48 +30,49 @@
 </style>
 <script type="text/javascript">
   function addNews(form) {
-  var args = form.formToDict($("#newsform"));
-  $.postJSON($("#newsform").attr("action"), args, function(response){
-  if(response=='done'){displayMessage("新闻添加成功");}
-  else{dispalyMessage("新闻添加失败");}
-  });
+    var args = form.formToDict($("#newsform"));
+    $.postJSON($("#newsform").attr("action"), args, function(response){
+      if(response=='done'){ displayMessage("新闻添加成功");}
+      else{ dispalyMessage("新闻添加失败"); }
+    });
   }
+
   $(document).ready(function(){
-  $('.fancybox').fancybox();
-  $('#newsform').live("submit", function(){
-  addNews($(this));
-  return false;
-  });
-       var button = $('#dropbox'), interval;
-       new AjaxUpload(button, {
-            action: '/data/imgpost', 
-            name: 'myfile',
-            onSubmit : function(file, ext){
-            button.text('正在上传');                                                           
-            this.disable();
-            interval = window.setInterval(function(){
-                var text = button.text();
-                if (text.length < 13){
-                    button.text(text + '.');                                    
-                } else {
-                    button.text('正在上传');                           
-                }
-           }, 200);
+    $('.fancybox').fancybox();
+    $('#newsform').live("submit", function(){
+      addNews($(this));
+      return false;
+    });
+    var button = $('#dropbox'), interval;
+    new AjaxUpload(button, {
+        action: '/data/imgpost', 
+        name: 'myfile',
+        onSubmit : function(file, ext){
+        button.text('正在上传');                                                           
+        this.disable();
+        interval = window.setInterval(function(){
+            var text = button.text();
+            if (text.length < 13){
+                button.text(text + '.');                                    
+            } else {
+                button.text('正在上传');                           
+            }
+         }, 200);
            },
-           onComplete: function(file, response){
-                                button.text('请将图片拖到此处上传');                                                  
-                                window.clearInterval(interval);
-                                this.enable();
-                                $("#preview").append('<div><img height="50" src="' + response +'">'+ response + '</div>');                                           
-                        }
-                });
-                                  $("#newspreview").live('click', function() {
-                                  var args=$("#newsform").formToDict();
-                                  $.postJSON("/~/preview", args, function(response) {
-                                  $("#inline").empty();
-                                  $("#inline").append(response);
-                                  })
-                                  });
+        onComplete: function(file, response){
+            button.text('请将图片拖到此处上传');                                                  
+            window.clearInterval(interval);
+            this.enable();
+            $("#preview").append('<div><img height="50" src="' + response +'">'+ response + '</div>');                                           
+        }
+    });
+    $("#newspreview").live('click', function() {
+      var args=$("#newsform").formToDict();
+        $.postJSON("/~/preview", args, function(response) {
+          $("#inline").empty();
+          $("#inline").append(response);
+        });
+    });
   });
 </script>
 </%block>

@@ -1,9 +1,11 @@
 <%inherit file="base.html"/>
 <%namespace file="pagination.html" import="pagination"/>
 <%namespace file="nav.html" import="navigation"/>
+
 <%block name="nav">
-${navigation(0)}
+  ${navigation(0)}
 </%block>
+
 <style type="text/css">
   * { margin: 0; padding: 0; }
   body { margin: 10px; font-size: 14px; font-family: 宋体; }
@@ -17,48 +19,48 @@ ${navigation(0)}
   .comment div span { color: #1f3a87; font-size: 12px; }
 </style>
 <%block name="title">
-PPTM News
+  PPTM News
 </%block>
 
 %if newsinfo:
-<h3 class="title">评论: ${newsinfo['title']}</h3>
+  <h3 class="title">评论: ${newsinfo['title']}</h3>
 
-<div class="notice" style="color: #666;text-align:center;">
-  发布时间: ${newsinfo['postedat']}   |    编辑: ${newsinfo['author']}    |    评论:
-  %if newsinfo['commentnum']:
-  ${newsinfo['commentnum']}
-  %else:
-  0
+  <div class="notice" style="color: #666;text-align:center;">
+    发布时间: ${newsinfo['postedat']}   |    编辑: ${newsinfo['author']}    |    评论:
+    %if newsinfo['commentnum']:
+      ${newsinfo['commentnum']}
+    %else:
+      0
+    %endif
+  </div>
+  <div id="commentsHolder">
+  </div>
+  %if comment_num:
+    <div class="pagination">
+      ${pagination(comment_num, 'getComments', newsinfo['id'])}
+    </div>
   %endif
-</div>
-<div id="commentsHolder">
-</div>
-%if comment_num:
-<div class="pagination">
-  ${pagination(comment_num, 'getComments', newsinfo['id'])}
-</div>
-%endif
 
-<h3 class="title">发表评论</h3>
-<p class="notice">发表评论请客观、公正，请文明用语。</p>
-<div class="notice" id="quote"></div>
-<form id="commentform">
-    <textarea name="comment" id="comment" cols="90%" rows="10" tabindex="4"></textarea>
-    <input type="hidden" name="comment_post_id" value="${newsinfo['id']}">
-    <input type="hidden" name="comment_parent" id="comment_parent" value="0">
-    ${xsrf}
-    <input type="submit" value="提交评论">
+  <h3 class="title">发表评论</h3>
+  <p class="notice">发表评论请客观、公正，请文明用语。</p>
+  <div class="notice" id="quote"></div>
+  <form id="commentform">
+      <textarea name="comment" id="comment" cols="90%" rows="10" tabindex="4"></textarea>
+      <input type="hidden" name="comment_post_id" value="${newsinfo['id']}">
+      <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+      ${xsrf}
+      <input type="submit" value="提交评论">
 %endif
 <script type="text/javascript">
   $(document).ready(function () {
   %if comment_num:
-  var url = $("a.active").attr("id");
-  $.get(url, function (html) {
-  $("div#commentsHolder").append(html);
-  });
+    var url = $("a.active").attr("id");
+    $.get(url, function (html) {
+      $("div#commentsHolder").append(html);
+    });
   %endif
 
-  $("#commentform").live("submit", function(){addComment($(this));return false;});
+  $("#commentform").live("submit", function(){ addComment($(this)); return false; });
   });
   
   function pageJump(obj) {
@@ -71,35 +73,35 @@ PPTM News
   }
   
   function delComment(id) {
-  $.get("/~/delComment_" + id, function (html) {
-  if(html == "done") {
-  displayMessage("评论删除成功");
-  $("div#" + id).empty()
-  } else {
-  displayMessage("评论删除失败")
-  }
-  });
+    $.get("/~/delComment_" + id, function (html) {
+      if(html == "done") {
+        displayMessage("评论删除成功");
+        $("div#" + id).empty();
+      } else {
+        displayMessage("评论删除失败")
+      }
+    });
   }
 
   function addQuote(id){
-  $("div#quote").empty();
-  $("div#quote").append("引用 #" + id + " 的评论.");
-  $("input#comment_parent").attr("value", id);
+    $("div#quote").empty();
+    $("div#quote").append("引用 #" + id + " 的评论.");
+    $("input#comment_parent").attr("value", id);
   }
 
   function addComment(form) {
-  var args = form.formToDict();
-  var disabled = form.find("input[type=submit]");
-  disabled.disable();
-  $.postJSON("/data/addComment", args, function(response){
-  if(response == "done") {
-  displayMessage("评论成功");
-  location.reload();
-  disabled.disable();
-  }else{
-  displayMessage("评论失败");
-  disabled.enable();
-  }
-  });
+    var args = form.formToDict();
+    var disabled = form.find("input[type=submit]");
+    disabled.disable();
+    $.postJSON("/data/addComment", args, function(response){
+      if(response == "done") {
+        displayMessage("评论成功");
+        location.reload();
+        disabled.disable();
+      }else{
+        displayMessage("评论失败");
+        disabled.enable();
+      }
+    });
   }
 </script>
