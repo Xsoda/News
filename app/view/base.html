@@ -9,9 +9,9 @@
     <script type="text/javascript" src="../static/javascripts/ajax.js"></script>
     <script type="text/javascript">
       $(document).ready(function () {
-      $.get("/auth/getUserInfo", function (html) {
-      $("div#userinfo").append(html);
-      });
+        $.get("/auth/getUserInfo", function (html) {
+          $("div#userinfo").append(html);
+        });
       })
     </script>
     <%block name="jsfile"/>

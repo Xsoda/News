@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 7
-_modified_time = 1336183945.896
+_modified_time = 1336380254.159
 _template_filename = 'app/view/admin/base.html'
 _template_uri = 'admin/base.html'
 _source_encoding = 'utf-8'
@@ -34,10 +34,10 @@ def render_body(context,**pageargs):
         
 
         # SOURCE LINE 34
-        __M_writer('\r\n          <div id="content" class="container_16 clearfix">\r\n            ')
-        # SOURCE LINE 36
+        __M_writer('\r\n            ')
+        # SOURCE LINE 35
         __M_writer(str(self.body()))
-        __M_writer('\r\n          </div>\r\n        </body>\r\n</html>\r\n')
+        __M_writer('\r\n        </body>\r\n</html>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()

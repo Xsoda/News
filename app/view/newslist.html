@@ -10,22 +10,22 @@ PPTM News
 
 <h1>${position}新闻</h1>
 %if newses:
-<div id="news">
-%for news in newses:
-<div id="news_${news['id']}" class="box">
-  [${news['category']}]&nbsp;${news['title']} <lable style="float:right; color: #666;">${news['commentnum']} 评论 @${news['postedat']} By ${news['author']}</lable>
-</div>
-%endfor
-</div>
-${pagination(pages, 'category', categoryid)}
+	<div id="news">
+	%for news in newses:
+		<div id="news_${news['id']}" class="box">
+		  [${news['category']}]&nbsp;${news['title']} <lable style="float:right; color: #666;">${news['commentnum']} 评论 @${news['postedat']} By ${news['author']}</lable>
+		</div>
+	%endfor
+	</div>
+	${pagination(pages, 'category', categoryid)}
 %else:
- <p><strong>${position}</strong> 分类下还没有添加新闻。</p>
+ 	<p><strong>${position}</strong> 分类下还没有添加新闻。</p>
 %endif
 
 <script type="text/javascript">
   $(document).ready(function(){
-  $("div#news>div.box").click(function(){
-  open($(this).attr("id"));
-  });
+  	$("div#news>div.box").click(function(){
+  		open($(this).attr("id"));
+  	});
   });
 </script>

@@ -6,23 +6,22 @@
 <script type="text/javascript">
   $(document).ready(function(){
       $('.fancybox').fancybox();
-  $('.fancybox').live("click", function(){
-  var id=$(this).attr("id");
-  var url = "/~/" + id;
-  $.get(url, function(response) {
-  $("#userform").html(response);
-  });
-  });
-  $("#editform").live("submit", function(){editUser($(this));return false;});
+      $('.fancybox').live("click", function(){
+        var id=$(this).attr("id");
+        var url = "/~/" + id;
+        $.get(url, function(response) {
+          $("#userform").html(response);
+        });
+      });
+      $("#editform").live("submit", function(){editUser($(this));return false;});
 
    });
   function editUser(form) {
-  var args=form.formToDict();
-  alert(form.attr("action"));
-  $.postJSON(form.attr("action"), args, function(response){
-  if(response=="done"){displayMessage("用户权限修改成功");}
-  else{displayMessage("用户权限修改失败");}
-  });
+    var args=form.formToDict();
+    $.postJSON(form.attr("action"), args, function(response){
+      if(response=="done"){displayMessage("用户权限修改成功");}
+      else{displayMessage("用户权限修改失败");}
+    });
   }
 </script>
 </%block>

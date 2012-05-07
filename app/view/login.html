@@ -1,7 +1,7 @@
 ﻿<%inherit file="base.html"/>
 <%namespace file="nav.html" import="navigation"/>
 <%block name="nav">
-${navigation(0)}
+  ${navigation(0)}
 </%block>
 <%block name="title">
 PPTM News
@@ -20,25 +20,25 @@ PPTM News
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-  $("#login").live("submit", function(){
-  Login($(this));
-  return false;
-  });
+    $("#login").live("submit", function(){
+      Login($(this));
+      return false;
+    });
   });
 
   function Login(form) {
-  var args = form.formToDict();
-  var disabled = form.find("input[type=submit]");
-  disabled.disable();
-  $.postJSON("#", args, function(response) {
-  if(response == "done"){
-  displayMessage("登录成功");
-  top.location="/";
-  }
-  else{
-  displayMessage("登录失败");
-  disabled.enable();
-  }
-  });
+    var args = form.formToDict();
+    var disabled = form.find("input[type=submit]");
+    disabled.disable();
+    $.postJSON("#", args, function(response) {
+      if(response == "done"){
+        displayMessage("登录成功");
+        top.location="/";
+      }
+      else{
+        displayMessage("登录失败");
+        disabled.enable();
+      }
+    });
   }
 </script>

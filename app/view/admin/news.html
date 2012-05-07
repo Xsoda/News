@@ -56,24 +56,26 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-  $("#getcategory").live("click", function(){
-  $.get('/~/newsList_' + $("#category").attr("value"), function(response){
-  $("#tbody").html(response);
+    $("#getcategory").live("click", function(){
+      $.get('/~/newsList_' + $("#category").attr("value"), function(response){
+        $("#tbody").html(response);
+      });
+    });
+  
+    $("#addNews").live("click", function(){
+      window.open("/~/addNews");
+    });
   });
-  });
-  $("#addNews").live("click", function(){
-  window.open("/~/addNews");
-  });
-  });
+
   function delNews(id) {
-  $.get("/~/delNews_" + id, function(response) {
-  if (response == "done"){
-  displayMessage("新闻删除成功");
-  $("#getcategory").click();
-  } else {
-  displayMessage("新闻删除失败");
-  }
-  });
-  return false;
+    $.get("/~/delNews_" + id, function(response) {
+      if (response == "done"){
+        displayMessage("新闻删除成功");
+        $("#getcategory").click();
+      } else {
+        displayMessage("新闻删除失败");
+      }
+    });
+    return false;
   }
 </script>

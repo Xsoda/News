@@ -3,9 +3,9 @@
       </div>
       <script type="text/javascript">
         $(document).ready(function() {
-        $.get("/data/getCategory_${selected}", function(html) {
-        $("#navigation").append(html);
-        })
+        	$.get("/data/getCategory_${selected}", function(html) {
+        		$("#navigation").append(html);
+        	});
         })
       </script>
 </%def>
