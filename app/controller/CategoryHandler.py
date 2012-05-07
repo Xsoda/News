@@ -1,6 +1,7 @@
 # *_* coding: utf-8 *_*
 
 from app.controller.Base import BaseHandler
+from app.controller.Base import admin
 
 class GetCategory(BaseHandler):
     def get(self, selected):
@@ -24,3 +25,36 @@ class CategoryNews(BaseHandler):
             self.write(self.serve_template("newslist.html", **{'newses': newses, 'position': newses[0]['category'], 'pages': int(pages['count']), 'page':pageth, 'categoryid': id}))
         else:
             self.write(self.serve_template("newslist.html", **{'newses': None, 'position': category['name'], 'newses': None, 'pages': None, 'page': None, 'categoryid': id}))
+
+class AddCategory(BaseHandler):
+    @admin
+    def post(self):
+        name = self.get_argument("category_name", None)
+        if name:
+            if self.db.execute_rowcount("insert into category(name, parentid) values(%s, %s);", *(name, 0)):
+                self.write("done")
+            else:
+                self.write("undone")
+        else:
+            self.write("undone")
+            
+class DelCategory(BaseHandler):
+    @admin
+    def get(self, id):
+        self.db.execute("select * from delCategory(%s);", *(id,))
+        self.write("done")
+    
+class EditCategory(BaseHandler):
+    @admin
+    def get(self, id):
+        pass
+
+    @admin
+    def post(self, id):
+        pass
+
+class AdminCategory(BaseHandler):
+    @admin
+    def get(self):
+        category = self.db.query("select * from category;")
+        self.write(self.serve_template("admin/category.html", **{'category': category, 'xsrf': self.xsrf_form_html()}))

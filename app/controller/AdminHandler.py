@@ -10,7 +10,9 @@ class Home(BaseHandler):
     
     @admin
     def get(self):
-        pass
+        category = self.db.query("select * from category;")
+        self.write(self.serve_template("admin/news.html", **{'category': category}))
+        self.finish()
 
 class ImgPost(BaseHandler):
 

@@ -1,0 +1,95 @@
+<%inherit file="base.html" />
+<%block name="navigation">
+<ul id="navigation">
+  <li><a href="/~/">新闻管理</a></li>
+  <li><a href="/~/user">用户管理</a></li>
+  <li><span class="active">分类管理</span></li>
+</ul>
+</%block>
+<%block name="extra">
+<script src="../../static/javascripts/jquery.fancybox.js" type="text/javascript"></script>
+<script src="../../static/javascripts/ajax.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="../../static/stylesheets/jquery.fancybox.css" media="screen" />
+<script type="text/javascript">
+  function addCategory(form) {
+  var args = form.formToDict($("#addform"));
+  $.postJSON("/~/addCategory", args, function(response){
+  if(response=='done'){displayMessage("分类添加成功");}
+  else{dispalyMessage("分类添加失败");}
+  });
+  }
+
+  function delCategory(id) {
+  if(confirm("删除分类会删除此分类下的所有新闻与新闻所属的评论, 确定要删除么?")) {
+  $.get("/~/delCategory_" + id, function(response){
+  if(response=="done"){displayMessage("删除分类成功");location.reload();}
+  else{displayMessage("分类删除失败");}
+  });
+  }
+  }
+  $(document).ready(function(){
+  $('.fancybox').fancybox();
+  $('#addform').live("submit", function(){
+  addCategory($(this));
+  return false;
+  });
+  });
+</script>
+</%block>                
+<div id="content" class="container_16 clearfix">
+  <form method="POST" id="addform">
+    <div class="grid_4">
+      <p>
+        <label>添加分类<small>分类名称</small></label>
+        <input type="text" name="category_name" />
+        ${xsrf}
+      </p>
+    </div>
+    <div class="grid_2">
+      <p>
+        <label>&nbsp;</label>
+        <input type="submit" value="确认添加" />
+      </p>
+    </div>
+  </form>
+  </div>
+  <div class="grid_16">
+    <table>
+      <thead>
+        <tr>
+          <th>编号</th>
+          <th>分类名称</th>
+          <th colspan="2" width="20%">操作</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+        </tr>
+      </tfoot>
+      <tbody>
+        <%
+           flag = True
+        %>
+        %for c in category:
+        %if flag == True:
+        <tr class="alt">
+          %else:
+        <tr>
+          %endif
+          <td>${c['id']}</td>
+          <td>${c['name']}</td>
+          <td><a href="#" class="edit">编辑</a></td>
+          <td><a href="javascript:delCategory(${c['id']});" class="delete">删除</a></td>
+        </tr>
+        <%
+           flag = ~flag
+        %>
+        %endfor
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<div id="foot">
+  <a href="#">Contact Me</a>
+</div>

@@ -29,18 +29,11 @@
 }
 </style>
 <script type="text/javascript">
-  function addNews(form) {
-  var args = form.formToDict($("#newsform"));
-  $.postJSON($("#newsform").attr("action"), args, function(response){
-  if(response=='done'){displayMessage("新闻添加成功");}
-  else{dispalyMessage("新闻添加失败");}
-  });
-  }
   $(document).ready(function(){
-  $('.fancybox').fancybox();
-  $('#newsform').live("submit", function(){
-  addNews($(this));
-  return false;
+      $('.fancybox').fancybox();
+      $('#newsform').live("submit", function(){
+      editNews($(this));
+      return false;
   });
        var button = $('#dropbox'), interval;
        new AjaxUpload(button, {
@@ -73,28 +66,44 @@
                                   })
                                   });
   });
+  function editNews(form) {
+          var args = form.formToDict($("#newsform"));
+          var disabled = form.find("input[type=submit]");
+          disabled.disable();
+          $.postJSON("#", args, function(response){
+          if(response == "done"){
+             displayMessage("新闻修改成功");
+          } else {
+             dispalyMessage("新闻修改失败");
+          }
+          disabled.enable();
+   });
+ }
 </script>
 </%block>
+
 <%block name="navigation">
 <ul id="navigation">
-  <li><a href="/~/" class="active">新闻管理</a></li>
+  <li><span class="active">新闻管理</span></li>
   <li><a href="/~/user">用户管理</a></li>
 </ul>
 </%block>
+
 <div class="grid_16">
-  <h2>添加新闻</h2>
+  <h2>修改新闻</h2>
 </div>
-<form method="POST" action="/~/addNews" id="newsform">
+
+<form method="POST" id="newsform">
   <div class="grid_5">
     <p>
       <label for="title">标题<small>请为新闻设定一个合适的标题.</small></label>
-      <input type="text" name="title" />
+      <input type="text" name="title" value="${news['title']}"/>
     </p>
   </div>
   <div class="grid_5">
     <p>
       <label for="title">新闻来源<small></small></label>
-      <input type="text" name="source" />
+      <input type="text" name="source" value="${news['source']}"/>
     </p>
                                                 
   </div>
@@ -103,7 +112,11 @@
       <label for="title">新闻类别</label>
       <select name="category">
         %for c in category:
-        <option value="${c['id']}">${c['name']}</option>
+             %if int(news['categoryid']) == int(c['id']):
+                 <option value="${c['id']}" selected="selected">${c['name']}</option>
+             %else:
+                 <option value="${c['id']}">${c['name']}</option>
+             %endif
         %endfor
       </select>
     </p>
@@ -111,7 +124,7 @@
   <div class="grid_16">
     <p>
       <label>新闻概要<small>将在新闻列表中显示.</small></label>
-      <textarea name="summary"></textarea>
+      <textarea name="summary" value="summary"></textarea>
     </p>
   </div>
   <div class="grid_3" id="dropbox">
@@ -122,12 +135,12 @@
   <div class="grid_16">
     <p>
       <label>新闻内容<small>Markdown 语法.</small></label>
-      <textarea name="content" class="big"></textarea>
+      <textarea name="content" class="big">${news['content']}</textarea>
     </p>
     <p class="submit">
       ${xsrf}
       <input type="reset" value="重置" />
-      <input type="submit" value="发布新闻" />
+      <input type="submit" value="确认修改" />
       <a class="fancybox" href="#inline" title="新闻预览" id="newspreview">预览</a>
     </p>
   </div>
