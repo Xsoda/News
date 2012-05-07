@@ -41,8 +41,17 @@ class BaseHandler(tornado.web.RequestHandler):
         return self._markdown.convert
 
     def reStructuredText(self, rst):
-        return publish_parts(rst, writer_name="html")
+        return publish_parts(rst, writer_name="html")['body']
 
+    def DocParise(self, doc, source):
+        if doc == 'html':
+            return source
+        elif doc == 'Markdown':
+            return self.markdown(source)
+        elif doc == 'reStructuredText':
+            return self.reStructuredText(source)
+        return 'error'
+    
     def isAdmin(self):
         if hasattr(self, 'current_user'):
             if int(self.current_user['grade']) == 1:
