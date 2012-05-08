@@ -96,6 +96,7 @@ begin
     return;
 end;
 $$ language plpgsql;
+-- drop function delCategory(integer);
 
 create or replace function delUser(integer) returns void as $$
 begin
@@ -105,6 +106,19 @@ begin
     return;
 end;
 $$ language plpgsql;
+-- drop function delUser(integer);
+
+create or replace function searchNews(refcursor, varchar) returns refcursor as $$
+declare
+    condition varchar;
+begin
+    condition := '%' || $1 || '%';
+    open $1 for select * from news where news.title like condition or news.summary like condition or news.content like condition;
+    return next $1;
+end;
+$$ language plpgsql;
+-- usage: select * from searchNews('search', '1'); fetch all from search;
+-- drop function searchNews(refcursor, varchar);
 
 -- Add Data !
 insert into category(id, name, parentId) values(100, '国内', 0);
