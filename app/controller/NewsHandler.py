@@ -5,9 +5,13 @@ import time
 
 class ShowNews(BaseHandler):
     def get(self, id):
+<<<<<<< HEAD
         news = self.db.get("select news.id, news.title, news.content, news.postedat, news.commentnum, usr.name as author, category.name as category, doc, news.categoryid from news left join usr on news.author=usr.id left join category on news.categoryid=category.id where news.id=%s;" % id)
+=======
+        news = self.db.get("select news.id, news.title, news.content, news.postedat, news.commentnum, usr.name as author, category.name as category, news.doc as doc, news.categoryid from news left join usr on news.author=usr.id left join category on news.categoryid=category.id where news.id=%s;" % id)
+>>>>>>> feature
         if news:
-            news['content'] = self.DocParise(news['content'], news['doc'])
+            news['content'] = self.DocParise(news['doc'], news['content'])
             self.write(self.serve_template("news.html", **{'news':news}))
         else:
             self.write("get news fail. news id is %s." % id)
