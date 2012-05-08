@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 7
-_modified_time = 1336375850.586
+_modified_time = 1336439527.187
 _template_filename = 'app/view/admin/user.html'
 _template_uri = 'admin/user.html'
 _source_encoding = 'utf-8'
@@ -102,7 +102,7 @@ def render_body(context,**pageargs):
             __M_writer('\r\n')
             pass
         # SOURCE LINE 109
-        __M_writer('        </tbody>\r\n      </table>\r\n    </div>\r\n  </div>\r\n\r\n<div id="foot">\r\n  <a href="#">Contact Me</a>\r\n</div>\r\n<div style="display:none" id="userform"><div>\r\n')
+        __M_writer('        </tbody>\r\n      </table>\r\n    </div>\r\n  </div>\r\n\r\n<div id="foot">\r\n  <a href="#">Contact Me</a>\r\n</div>\r\n<div style="display:none;width:300px;" id="userform"><div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
