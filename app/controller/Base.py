@@ -6,6 +6,7 @@ from mako.exceptions import RichTraceback
 from core.session.session import RedisSession
 import markdown
 from docutils.core import publish_parts
+import re
 
 def authenticated(method):
     def wrapper(self, *args, **kwargs):
