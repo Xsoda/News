@@ -55,7 +55,7 @@ class BaseHandler(tornado.web.RequestHandler):
     
     def isAdmin(self):
         if hasattr(self, 'current_user'):
-            if int(self.current_user['grade']) == 1:
+            if self.current_user and int(self.current_user['grade']) == 1:
                 return True
         return False
 
