@@ -80,3 +80,7 @@ class NewsList(BaseHandler):
         else:
             self.write('当前分类下没有任何新闻')
         self.finish()
+
+class SearchNews(BaseHandler):
+    def post(self):
+        pass
