@@ -29,7 +29,7 @@ Python模块依赖
 -----------
 - 2012-05-09 21:24:59
 
-  - 将 Readme 由 Markdown 换为 `reStructuredText`
+  - 将 Readme 由 ``Markdown`` 换为 ``reStructuredText``
 
 - 2012-05-08 14:17:32
 
