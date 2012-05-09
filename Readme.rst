@@ -14,7 +14,7 @@ Python模块依赖
 #. `mako 0.6.2`_
 #. `tornado 2.2`_
 #. `redis 2.4.5 (for windows)`_
-#. redis-py_
+#. `redis-py`_
 #. anyjson_
 #. doctuils_ 
 #. Markdown_ 
