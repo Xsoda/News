@@ -1,26 +1,34 @@
 ﻿<%inherit file="base.html"/>
 <%namespace file="nav.html" import="navigation"/>
 <%block name="nav">
-	${navigation(0)}
+        ${navigation(0)}
 </%block>
 
 <%block name="title">
-	PPTM News
+        PPTM News
 </%block>
 
 <h3 class="title">${position}</h3>
+<div id="search">
+  <form action="/search" method="post">
+    <input type="text" name="search"><input type="submit" value="搜索全站">
+    ${xsrf}
+  </form>
+</div>
 %if newses:
-	%for news in newses:
-	<div id="news_${news['id']}" class="box">
-	  [${news['category']}]&nbsp;${news['title']} <lable style="float:right; color: #666;">${news['commentnum']}评论 @${news['postedat']} By ${news['author']}</lable>
-	</div>
-	%endfor
+        %for news in newses:
+        <div id="news_${news['id']}" class="box">
+          [${news['category']}]&nbsp;${news['title']} <lable style="float:right; color: #666;">${news['commentnum']}评论 @${news['postedat']} By ${news['author']}</lable>
+        </div>
+        %endfor
+%else:
+        <div class="box">没有任何新闻可以显示.</div>
 %endif
 
 <script type="text/javascript">
   $(document).ready(function(){
-  	$("div.box").click(function(){
-  		open($(this).attr("id"));
-  	});
+        $("div.box").click(function(){
+                open($(this).attr("id"));
+        });
   });
 </script>

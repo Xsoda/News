@@ -113,7 +113,7 @@ declare
     condition varchar;
 begin
     condition := '%' || $1 || '%';
-    open $1 for select * from news where news.title like condition or news.summary like condition or news.content like condition;
+    open $1 for select news.id, news.title, news.postedat, news.commentnum, category.name as category, usr.name as author from news left join usr on news.author=usr.id left join category on news.categoryid=category.id where news.title like condition or news.summary like condition or news.content like condition;
     return next $1;
 end;
 $$ language plpgsql;

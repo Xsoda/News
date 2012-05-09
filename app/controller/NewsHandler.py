@@ -83,4 +83,6 @@ class NewsList(BaseHandler):
 
 class SearchNews(BaseHandler):
     def post(self):
-        pass
+        search = self.get_argument("search",None)
+        news = self.db.query("select * from searchNews('search', %s);fetch all from search;", *(search,))
+        self.write(self.serve_template("index.html", **{'newses': news, 'position': '搜索结果', 'xsrf': self.xsrf_form_html()}))
