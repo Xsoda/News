@@ -9,7 +9,7 @@ About This Project
 Python模块依赖
 --------------------
 
-#. .. _Python 3.2.2: http://python.org
+#. _Python 3.2.2: http://python.org
 #. .. _psycopg2 2.4.4: http://initd.org/psycopg
 #. .. _PostgreSql 9.1: http://postgresql.org
 #. .. _mako 0.6.2: http://makotemplates.org
