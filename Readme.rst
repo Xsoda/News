@@ -9,21 +9,21 @@ About This Project
 Python模块依赖
 --------------------
 
-#. _Python 3.2.2: http://python.org
-#. .. _psycopg2 2.4.4: http://initd.org/psycopg
-#. .. _PostgreSql 9.1: http://postgresql.org
-#. .. _mako 0.6.2: http://makotemplates.org
-#. .. _tornado 2.2: https://github.com/facebook/tornado.git
-#. .. _redis 2.4.5 (for windows): https://github.com/dmajkic/redis.git
-#. .. _redis-py: https://github.com/dcolish/redis-py.git
-#. .. _anyjson: http://pypi.python.org/pypi/anyjson/0.3.1
-#. .. _doctuils: 
-#. .. _Markdown: 
+#. `Python 3.2.2`_: http://python.org
+#. `psycopg2 2.4.4`_: http://initd.org/psycopg
+#. `PostgreSql 9.1`_: http://postgresql.org
+#. `mako 0.6.2`_: http://makotemplates.org
+#. `tornado 2.2`_: https://github.com/facebook/tornado.git
+#. `redis 2.4.5 (for windows)`_: https://github.com/dmajkic/redis.git
+#. `redis-py`_: https://github.com/dcolish/redis-py.git
+#. anyjson_: http://pypi.python.org/pypi/anyjson/0.3.1
+#. doctuils_: 
+#. Markdown_: 
   
 参考
 -----------
-#. .. _session redis: http://tornadogists.org/1735032/ 原文使用 pickle 序列化，现改为JSON。
-#. .. _Admin Template: 本系统后台完全使用其代码模板
+#. `session redis`_: http://tornadogists.org/1735032/ 原文使用 pickle 序列化，现改为JSON。
+#. `Admin Template`_: 本系统后台完全使用其代码模板
   
 开发日志
 -----------
