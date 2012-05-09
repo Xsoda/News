@@ -8,13 +8,13 @@
         PPTM News
 </%block>
 
-<h3 class="title">${position}</h3>
-<div id="search">
+<h1 class="title">${position}
+<div id="search" style="float: right;">
   <form action="/search" method="post">
     <input type="text" name="search"><input type="submit" value="搜索全站">
     ${xsrf}
   </form>
-</div>
+</div></h1>
 %if newses:
         %for news in newses:
         <div id="news_${news['id']}" class="box">

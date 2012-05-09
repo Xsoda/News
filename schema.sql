@@ -108,15 +108,21 @@ end;
 $$ language plpgsql;
 -- drop function delUser(integer);
 
-create or replace function searchNews(refcursor, varchar) returns refcursor as $$
+create or replace function searchNews(refcursor, character varying) returns refcursor as $$
 declare
     condition varchar;
 begin
-    condition := '%' || $1 || '%';
-    open $1 for select news.id, news.title, news.postedat, news.commentnum, category.name as category, usr.name as author from news left join usr on news.author=usr.id left join category on news.categoryid=category.id where news.title like condition or news.summary like condition or news.content like condition;
-    return next $1;
+    condition := '%' || $2 || '%';
+    open $1 for
+         select news.id, news.title, news.summary, news.content, news.postedat, news.commentnum, category.name as category, usr.name as author 
+         from news
+         left join usr on news.author=usr.id
+         left join category on news.categoryid=category.id
+         where news.title like condition or news.summary like condition or news.content like condition;
+    return $1;
 end;
 $$ language plpgsql;
+
 -- usage: select * from searchNews('search', '1'); fetch all from search;
 -- drop function searchNews(refcursor, varchar);
 
