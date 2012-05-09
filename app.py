@@ -54,7 +54,7 @@ class Application(tornado.web.Application):
             (r"/auth/getUserInfo", app.controller.AuthorizedHandler.UserInfo),
             (r"/auth/logout", app.controller.AuthorizedHandler.Logout),
             (r"/~/", app.controller.AdminHandler.Home),
-            (r"/searchNews", app.controller.NewsHandler.SearchNews), # 搜索新闻 <POST>
+            (r"/search", app.controller.NewsHandler.SearchNews), # 搜索新闻 <POST>
             (r"/data/imgpost", app.controller.AdminHandler.ImgPost),
             (r"/~/addNews", app.controller.NewsHandler.AddNews),
             (r"/~/editNews_(\d+)", app.controller.NewsHandler.EditNews),
