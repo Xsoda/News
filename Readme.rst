@@ -8,28 +8,28 @@ About This Project
 
 Python模块依赖
 --------------------
+#. `Python 3.2.2`_
+#. `psycopg2 2.4.4`_
+#. `PostgreSql 9.1`_
+#. `mako 0.6.2`_
+#. `tornado 2.2`_
+#. `redis 2.4.5 (for windows)`_
+#. redis-py_
+#. anyjson_
+#. doctuils_ 
+#. Markdown_ 
 
-#. `Python 3.2.2`_: http://python.org
-#. `psycopg2 2.4.4`_: http://initd.org/psycopg
-#. `PostgreSql 9.1`_: http://postgresql.org
-#. `mako 0.6.2`_: http://makotemplates.org
-#. `tornado 2.2`_: https://github.com/facebook/tornado.git
-#. `redis 2.4.5 (for windows)`_: https://github.com/dmajkic/redis.git
-#. `redis-py`_: https://github.com/dcolish/redis-py.git
-#. anyjson_: http://pypi.python.org/pypi/anyjson/0.3.1
-#. doctuils_: 
-#. Markdown_: 
   
 参考
 -----------
-#. `session redis`_: http://tornadogists.org/1735032/ 原文使用 pickle 序列化，现改为JSON。
-#. `Admin Template`_: 本系统后台完全使用其代码模板
+#. `session redis`_ 原文使用 pickle 序列化，现改为JSON。
+#. `Admin Template`_ 本系统后台完全使用其代码模板
   
 开发日志
 -----------
 - 2012-05-09 21:24:59
 
-  - 将 Readme 由 Markdown 换为 *re*/ Structured / :sub: Text
+  - 将 Readme 由 Markdown 换为 *re***Structured**:sub:`Text`
 
 - 2012-05-08 14:17:32
 
@@ -95,3 +95,15 @@ TODO
   - 用户重置密码(未登录时)
   - 新闻的搜索
   - 新闻概要的显示
+
+.. _`Python 3.2.2`: http://python.org
+.. _`psycopg2 2.4.4`_: http://initd.org/psycopg
+.. _`PostgreSql 9.1`_: http://postgresql.org
+.. _`mako 0.6.2`_: http://makotemplates.org
+.. _`tornado 2.2`_: https://github.com/facebook/tornado.git
+.. _`redis 2.4.5 (for windows)`_: https://github.com/dmajkic/redis.git
+.. _`redis-py`_: https://github.com/dcolish/redis-py.git
+.. _anyjson: http://pypi.python.org/pypi/anyjson/0.3.1
+.. _doctuils: http://docutils.sourceforge.net/rst.html
+.. _Markdown: http://daringfireball.net/projects/markdown/
+.. _`redis session`: http://tornadogists.org/1735032/ 
