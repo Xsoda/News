@@ -97,12 +97,12 @@ TODO
   - 新闻概要的显示
 
 .. _`Python 3.2.2`: http://python.org
-.. _`psycopg2 2.4.4`_: http://initd.org/psycopg
-.. _`PostgreSql 9.1`_: http://postgresql.org
-.. _`mako 0.6.2`_: http://makotemplates.org
-.. _`tornado 2.2`_: https://github.com/facebook/tornado.git
-.. _`redis 2.4.5 (for windows)`_: https://github.com/dmajkic/redis.git
-.. _`redis-py`_: https://github.com/dcolish/redis-py.git
+.. _`psycopg2 2.4.4`: http://initd.org/psycopg
+.. _`PostgreSql 9.1`: http://postgresql.org
+.. _`mako 0.6.2`: http://makotemplates.org
+.. _`tornado 2.2`: https://github.com/facebook/tornado.git
+.. _`redis 2.4.5 (for windows)`: https://github.com/dmajkic/redis.git
+.. _`redis-py`: https://github.com/dcolish/redis-py.git
 .. _anyjson: http://pypi.python.org/pypi/anyjson/0.3.1
 .. _doctuils: http://docutils.sourceforge.net/rst.html
 .. _Markdown: http://daringfireball.net/projects/markdown/
