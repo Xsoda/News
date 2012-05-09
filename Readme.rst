@@ -106,5 +106,5 @@ TODO
 .. _anyjson: http://pypi.python.org/pypi/anyjson/0.3.1
 .. _doctuils: http://docutils.sourceforge.net/rst.html
 .. _Markdown: http://daringfireball.net/projects/markdown/
-.. _`redis session`: http://tornadogists.org/1735032/
+.. _`session redis`: http://tornadogists.org/1735032/
 .. _`Admin Template`: http://github.com/
