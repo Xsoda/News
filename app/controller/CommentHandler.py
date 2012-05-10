@@ -53,7 +53,7 @@ class GetComments(BaseHandler):
     def _parseCommentsToHtml(self, comments, pageth):
         html = []
         for comment in comments[(int(pageth) - 1) * 10 : int(pageth) * 10]:
-            html.append('''<div class="comment" id="{id}"><p class="title"><span>{time}</span><img height="50" src="{gravatar}" onerror="this.src=\'./../static/image/default.png\'"></img>{author}</p>'''.format(**{'id': comment['id'], 'time': comment['postedat'], 'gravatar': gravatar(comment['email']), 'author': comment['name']}))
+            html.append('''<div class="comment" id="{id}"><p class="title"><span>{time}</span><img height="50" src="{gravatar}" onerror="this.src=\'/static/image/default.png\'"></img>{author}</p>'''.format(**{'id': comment['id'], 'time': comment['postedat'], 'gravatar': gravatar(comment['email']), 'author': comment['name']}))
             if comment['commentid'] != 0:
                 html.append(self._parse(comment, comments))
             html.append('<p>{content}{del}<a class="btn" style="float:right;" href="javascript:addQuote({id})">引用评论</a></p></div>'.format(**{'content': self.markdown(comment['content']), 'id': comment['id'], 'del': '<a class="btn" style="float:right;" href="javascript:delComment(' + str(comment['id']) + ');">删除评论</a>' if self.isAdmin() else ''}))
