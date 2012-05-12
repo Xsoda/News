@@ -8,7 +8,8 @@ from core.web.helpers import Gravatar
 from core.web.mail import Mail
 
 gravatar = Gravatar(size=140, rating='g', default='./../static/image/default.png', force_default=False, force_lower=True)
-sendmail = Mail(smtpserver="smtp.live.com", smtpport="25", fromAddress="xsoda@live.com", fromPassword="1989ii24", subject="Reset You Password")
+sendmail = Mail(smtpserver="smtp.live.com", smtpport="25", fromAddress="email@live.com", fromPassword="password", subject="Reset You Password")
+
 class Login(BaseHandler):
     def get(self):
         self.write(self.serve_template("login.html", **{'xsrf': self.xsrf_form_html()}))
