@@ -7,6 +7,7 @@ from core.session.session import RedisSession
 import markdown
 from docutils.core import publish_parts
 import re
+
 # <\s*script(?:.|\s)*?(?:/\s*>|<\s*/script\s*>)
 def authenticated(method):
     def wrapper(self, *args, **kwargs):

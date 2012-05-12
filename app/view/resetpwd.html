@@ -1,0 +1,43 @@
+﻿<%inherit file="base.html"/>
+<%namespace file="nav.html" import="navigation"/>
+<%block name="nav">
+${navigation(0)}
+</%block>
+<%block name="title">
+PPTM News
+</%block>
+
+<h1 class="title">重置密码</h1>
+<div class="notice">
+  <form action="/auth/reset" method="post" id="reset">
+    <table>
+      <tr><td>用户名:</td><td><input type="text" name="user_name"></td></tr>
+      <tr><td>电子邮件:</td><td><input type="text" name="email"></td></tr>
+      <tr><td><input type="submit" value="重置密码"></td><td><input type="reset" value="重置"></td></tr>
+      ${xsrf}
+    </table>
+  </form>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#reset").live("submit", function(){
+      ResetPassword($(this));
+      return false;
+    });
+  });
+
+  function ResetPassword(form){
+    var args = form.formToDict();
+    var disabled = form.find("input[type=submit]");
+    $.postJSON("#", args, function(response){
+      if(response == "done") {
+        displayMessage("密码重置成功，请查看邮箱获取新密码登录");
+      }else if (response == "error") {
+        displayMessage("用户名与邮箱不匹配");
+      }else{
+        displayMessage("密码重置失败");
+      }
+    });
+  }
+</script>
