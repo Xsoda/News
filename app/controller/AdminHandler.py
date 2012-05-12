@@ -11,7 +11,7 @@ class Home(BaseHandler):
     @admin
     def get(self):
         category = self.db.query("select * from category;")
-        self.write(self.serve_template("admin/news.html", **{'category': category}))
+        self.write(self.serve_template("admin/news.html", **{'category': category, 'xsrf': self.xsrf_form_html()}))
         self.finish()
 
 class ImgPost(BaseHandler):

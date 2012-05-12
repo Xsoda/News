@@ -6,6 +6,9 @@
   <li><a href="/~/category">分类管理</a></li>
 </ul>
 </%block>
+<%block name="extra">
+<script src="../../static/javascripts/ajax.js" type="text/javascript"></script>
+</%block>
 <div id="content" class="container_16 clearfix">
   <div class="grid_4">
     <p>
@@ -21,6 +24,16 @@
     <p>
       <label>&nbsp;</label>
       <input type="submit" value="获取新闻" id="getcategory"/>
+    </p>
+  </div>
+  <div class="grid_4">
+    <p>
+      <label>搜索新闻</label>
+      <form action="/~/search" method="post" id="search_news">
+        <input type="text" name="keyword">
+        ${xsrf}
+        <input type="submit" value="搜索">
+      </form>
     </p>
   </div>
   <div class="grid_4">
@@ -53,11 +66,26 @@
   <a href="#">Contact Me</a>
 </div>
 <script type="text/javascript">
+  function search(form){
+    var args = form.formToDict();
+    var disabled = form.find("input[type=submit]");
+    disabled.disable();
+    $.postJSON("/~/search", args, function(response) {
+      $("#tbody").html(response);
+      disabled.enable();
+    });
+  }
+  
   $(document).ready(function(){
     $("#getcategory").live("click", function(){
       $.get('/~/newsList_' + $("#category").attr("value"), function(response){
         $("#tbody").html(response);
       });
+    });
+  
+    $("#search_news").live("submit", function(){
+      search($(this));
+      return false;
     });
   
     $("#addNews").live("click", function(){
