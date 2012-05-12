@@ -53,6 +53,8 @@ class Application(tornado.web.Application):
             (r"/auth/register", app.controller.AuthorizedHandler.Register),
             (r"/auth/getUserInfo", app.controller.AuthorizedHandler.UserInfo),
             (r"/auth/logout", app.controller.AuthorizedHandler.Logout),
+            (r"/auth/edit", app.controller.AuthorizedHandler.EditPassword),
+            (r"/auth/reset", app.controller.AuthorizedHandler.ResetPassword),
             (r"/~/", app.controller.AdminHandler.Home),
             (r"/search", app.controller.NewsHandler.SearchNews), # 搜索新闻 <POST>
             (r"/data/imgpost", app.controller.AdminHandler.ImgPost),
