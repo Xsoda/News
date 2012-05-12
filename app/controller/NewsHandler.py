@@ -86,3 +86,15 @@ class SearchNews(BaseHandler):
         search = self.get_argument("search",None)
         news = self.db.query("select * from searchNews('search', %s);fetch all from search;", *(search,))
         self.write(self.serve_template("index.html", **{'newses': news, 'position': '搜索结果', 'xsrf': self.xsrf_form_html()}))
+
+class AdminSearch(BaseHandler):
+    @admin
+    def post(self):
+        keyword = self.get_argument("keyword", None)
+        news = self.db.query("select * from searchNews('search', %s);fetch all from search;", *(keyword,))
+        if news:
+            response = ['''<tr><td><a href="/news_{id}"><strong>[{category}]</strong> {title}</a></td><td>{author}</td><td>{postedat}</td><td><a href="javascript: delNews({id});" class="delete">删除</a></td><td><a href="/~/editNews_{id}" class="edit">修改</a></td></tr>'''.format(**n) for n in news]
+            self.write(''.join(response))
+        else:
+            self.write('该关键词无法搜索到任何新闻')
+        self.flush()
