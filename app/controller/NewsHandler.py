@@ -34,7 +34,7 @@ class AddNews(BaseHandler):
         content = self.get_argument('content', None)
         source = self.get_argument('source', None)
         doc = self.get_argument('doc', None)
-        if self.db.execute_rowcount("insert into news(categoryid, title, content, source, author, postedat, commentnum, summary, doc) values(%s, %s, %s, %s, %s, %s, %s, %s, %s);", *(categoryid, title, content, source, self.current_user['id'], time.ctime(), 0, summary, doc)):
+        if self.db.execute_rowcount("insert into news(categoryid, title, content, source, author, postedat, commentnum, summary, doc) values(%s, %s, %s, %s, %s, %s, %s, %s, %s);", *(categoryid, title, self.JsEscape(content), source, self.current_user['id'], time.ctime(), 0, self.JsEscape(summary), doc)):
             self.write('done')
         else:
             self.write('undone')
@@ -55,7 +55,7 @@ class EditNews(BaseHandler):
        content = self.get_argument('content', None)
        source = self.get_argument('source', None)
        doc = self.get_argument('doc', None)
-       if self.db.execute_rowcount("update news set categoryid=%s, title=%s, content=%s, source=%s, summary=%s, doc=%s where id=%s;", *(categoryid, title, content, source, summary, doc, id)):
+       if self.db.execute_rowcount("update news set categoryid=%s, title=%s, content=%s, source=%s, summary=%s, doc=%s where id=%s;", *(categoryid, title, self.JsEscape(content), source, self.JsEscape(summary), doc, id)):
            self.write('done')
        else:
            self.write('undone')

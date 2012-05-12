@@ -8,7 +8,6 @@ import markdown
 from docutils.core import publish_parts
 import re
 
-# <\s*script(?:.|\s)*?(?:/\s*>|<\s*/script\s*>)
 def authenticated(method):
     def wrapper(self, *args, **kwargs):
         if self.get_current_user():
@@ -27,6 +26,23 @@ def admin(method):
     return wrapper
 
 class BaseHandler(tornado.web.RequestHandler):
+
+    def JsEscape(self, html):
+        pattern = re.compile(r"<\s*script(?:.|\s)*?(?:/\s*>|<\s*/script\s*>)")
+        iterator = pattern.finditer(html)
+        result = []
+        index = 0
+        for match in iterator:
+            start, end = match.span()
+            if start > index:
+                result.append(html[index : start - 1])
+            js = html[start:end].replace('<', '&lt;').replace('>', '&gt;')
+            result.append(js)
+            index = end + 1
+        else:
+            html = ''.join(result)
+        return html
+    
     @property
     def db(self):
         return self.application.db
