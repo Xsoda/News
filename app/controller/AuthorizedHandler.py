@@ -60,7 +60,7 @@ class UserInfo(BaseHandler):
             print(userinfo)
             grade = '<a href="/~/">后台管理</a>' if int(userinfo['grade']) else ''
             img = gravatar(userinfo['email'])
-            html = '<img height="50" src="' + img + '" onerror="../static/image/default.png"></img>' + '{name} ' + grade + '<a href="/auth/edit">修改密码</a> & <a href="/auth/logout">注销</a>'
+            html = '<img height="50" src="' + img + '" onerror="../static/image/default.png"></img>' + '{name} ' + grade + ' & <a href="/auth/edit">修改密码</a> & <a href="/auth/logout">注销</a>'
             self.write(html.format(**userinfo))
         else:
             self.write('<a href="/auth/login">登录</a> & <a href="/auth/register">注册</a> & <a href="/auth/reset">重置密码</a>')
@@ -81,7 +81,7 @@ class EditPassword(BaseHandler):
     def post(self):
         old_pwd = self.get_argument("old_password", None)
         user_pwd = self.get_argument("user_password", None)
-        repet_pwd = self.get_argument("repeat_password", None)
+        repeat_pwd = self.get_argument("repeat_password", None)
         if user_pwd == repeat_pwd:
             if check_password(old_pwd, self.current_user['password'], self.current_user['salt']):
                 pwd, salt = encrypt_password(user_pwd)
@@ -94,7 +94,7 @@ class EditPassword(BaseHandler):
         else:
             self.write("newerror")
         self.flush()
-
+        
 class ResetPassword(BaseHandler):
     def get(self):
         self.write(self.serve_template("resetpwd.html", **{'xsrf': self.xsrf_form_html()}))

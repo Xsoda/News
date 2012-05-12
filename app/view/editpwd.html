@@ -11,7 +11,7 @@ PPTM News
 <div class="notice">
   <form action="/auth/edit" method="post" id="eidtpwd">
     <table>
-      <tr><td>旧密码:</td><td><input type="text" name="old_password"></td></tr>
+      <tr><td>旧密码:</td><td><input type="password" name="old_password"></td></tr>
       <tr><td>新密码:</td><td><input type="password" name="user_password"></td></tr>
       <tr><td>重复新密码:</td><td><input type="password" name="repeat_password"></td></tr>
       <tr><td><input type="submit" value="修改密码"></td><td><input type="reset" value="重置"></td></tr>
@@ -31,10 +31,10 @@ PPTM News
   function EditPwd(form){
     var args = form.formToDict();
     var disabled = form.find("input[type=submit]");
-    $.postJSON("#", args, function(response){
+    $.postJSON("/auth/edit", args, function(response){
       if(response == "done") {
         displayMessage("修改密码成功，请使用新密码登录");
-      }else if (response == "oldpwd") {
+      }else if (response == "olderror") {
         displayMessage("旧密码验证错误");
       }else{
         displayMessage("新密码两次输入不一致");
