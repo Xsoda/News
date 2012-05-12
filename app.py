@@ -59,6 +59,7 @@ class Application(tornado.web.Application):
             (r"/search", app.controller.NewsHandler.SearchNews), # 搜索新闻 <POST>
             (r"/data/imgpost", app.controller.AdminHandler.ImgPost),
             (r"/~/addNews", app.controller.NewsHandler.AddNews),
+            (r"/~/search", app.controller.NewsHandler.AdminSearch),
             (r"/~/editNews_(\d+)", app.controller.NewsHandler.EditNews),
             (r"/~/delNews_(\d+)", app.controller.NewsHandler.DelNews),
             (r"/~/preview", app.controller.NewsHandler.Preview),
