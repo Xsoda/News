@@ -60,7 +60,7 @@ class UserInfo(BaseHandler):
         if userinfo:
             grade = '<a href="/~/">后台管理</a>' if int(userinfo['grade']) else ''
             img = gravatar(userinfo['email'])
-            html = '<img height="50" src="' + img + '" onerror="../static/image/default.png"></img>' + '{name} ' + grade + ' & <a href="/auth/edit">修改密码</a> & <a href="/auth/logout">注销</a>'
+            html = '<a href="http://gravatar.com/emails"><img height="50" src="' + img + '" onerror="this.src=\'../static/image/default.png\'"></img></a>' + '{name} ' + grade + ' & <a href="/auth/edit">修改密码</a> & <a href="/auth/logout">注销</a>'
             self.write(html.format(**userinfo))
         else:
             self.write('<a href="/auth/login">登录</a> & <a href="/auth/register">注册</a> & <a href="/auth/reset">重置密码</a>')
