@@ -72,7 +72,7 @@ class AddComment(BaseHandler):
     def post(self):
         news_id = self.get_argument('comment_post_id')
         parent_id = self.get_argument('comment_parent')
-        comment_content = self.get_argument('comment')
+        comment_content = self.PyStrEscape(self.get_argument('comment'))
         user = self.get_current_user()
         if self.db.execute_rowcount("insert into comment(authorid, author, newsid, content, postedat, commentid) values('%s', '%s', '%s', '%s', '%s', '%s');" % (user['id'], user['name'], news_id, self.JsEscape(comment_content), time.ctime(), parent_id)):
             self.db.execute_rowcount("update news set commentnum = commentnum + 1 where id='%s';" % news_id)

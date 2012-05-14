@@ -29,7 +29,7 @@ class CategoryNews(BaseHandler):
 class AddCategory(BaseHandler):
     @authenticated("admin")
     def post(self):
-        name = self.get_argument("category_name", None)
+        name = self.PyStrEscape(self.get_argument("category_name", None))
         if name:
             if self.db.execute_rowcount("insert into category(name, parentid) values(%s, %s);", *(name, 0)):
                 self.write("done")
@@ -64,7 +64,7 @@ class EditCategory(BaseHandler):
     @authenticated("admin")
     def post(self, id):
         category_id = self.get_argument("category_id")
-        category_name = self.get_argument("category_name")
+        category_name = self.PyStrEscape(self.get_argument("category_name"))
         if category_name and self.db.execute_rowcount("update category set name=%s where id=%s;", *(category_name, category_id)):
             self.write("done")
         else:
