@@ -1,22 +1,22 @@
 # *_* coding: utf-8 *_*
 __author__ = 'Xsoda'
 
-from app.controller.Base import BaseHandler, admin
+from app.controller.Base import BaseHandler, authenticated
 
 class UserList(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self):
         userlist = self.db.query("select * from usr order by grade desc;")
         self.write(self.serve_template("admin/user.html", **{'userlist': userlist}))
 
 class DelUser(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self, id):
         self.db.execute("select * from delUser(%s);", *(id,))
         self.write('done')
 
 class EditUser(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self, id):
         user = self.db.get("select * from usr where id=%s;", *(id,))
         user['xsrf'] = self.xsrf_form_html()
@@ -30,7 +30,7 @@ class EditUser(BaseHandler):
         </table></form>'''.format(**user)
         self.write(html)
         
-    @admin
+    @authenticated("admin")
     def post(self,id):
         userid = self.get_argument('userid', None)
         grade = self.get_argument('grade', None)
