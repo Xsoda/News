@@ -28,11 +28,11 @@ class AddNews(BaseHandler):
 
     @authenticated("admin")
     def post(self):
-        title = self.get_argument('title', None)
+        title = self.PyStrEscape(self.get_argument('title', None))
         categoryid = self.get_argument('category', None)
-        summary = self.get_argument('summary', None)
-        content = self.get_argument('content', None)
-        source = self.get_argument('source', None)
+        summary = self.PyStrEscape(self.get_argument('summary', None))
+        content = self.PyStrEscape(self.get_argument('content', None))
+        source = self.PyStrEscape(self.get_argument('source', None))
         doc = self.get_argument('doc', None)
         if self.db.execute_rowcount("insert into news(categoryid, title, content, source, author, postedat, commentnum, summary, doc) values(%s, %s, %s, %s, %s, %s, %s, %s, %s);", *(categoryid, title, self.JsEscape(content), source, self.current_user['id'], time.ctime(), 0, self.JsEscape(summary), doc)):
             self.write('done')
@@ -49,12 +49,12 @@ class EditNews(BaseHandler):
        
    @authenticated("admin")
    def post(self, id):
-       title = self.get_argument('title', None)
+       title = self.PyStrEscape(self.get_argument('title', None))
        categoryid = self.get_argument('category', None)
-       summary = self.get_argument('summary', None)
-       content = self.get_argument('content', None)
-       source = self.get_argument('source', None)
-       doc = self.get_argument('doc', None)
+       summary = self.PyStrEscape(self.get_argument('summary', None))
+       content = self.PyStrEscape(self.get_argument('content', None))
+       source = self.PyStrEscape(self.get_argument('source', None))
+       doc = self.PyStrEscape(self.get_argument('doc', None))
        if self.db.execute_rowcount("update news set categoryid=%s, title=%s, content=%s, source=%s, summary=%s, doc=%s where id=%s;", *(categoryid, title, self.JsEscape(content), source, self.JsEscape(summary), doc, id)):
            self.write('done')
        else:
@@ -83,14 +83,14 @@ class NewsList(BaseHandler):
 
 class SearchNews(BaseHandler):
     def post(self):
-        search = self.get_argument("search",None)
+        search = self.PyStrEscape(self.get_argument("search",None))
         news = self.db.query("select * from searchNews('search', %s);fetch all from search;", *(search,))
         self.write(self.serve_template("index.html", **{'newses': news, 'position': '搜索结果', 'xsrf': self.xsrf_form_html()}))
 
 class AdminSearch(BaseHandler):
     @authenticated("admin")
     def post(self):
-        keyword = self.get_argument("keyword", None)
+        keyword = self.PyStrEscape(self.get_argument("keyword", None))
         news = self.db.query("select * from searchNews('search', %s);fetch all from search;", *(keyword,))
         if news:
             response = ['''<tr><td><a href="/news_{id}"><strong>[{category}]</strong> {title}</a></td><td>{author}</td><td>{postedat}</td><td><a href="javascript: delNews({id});" class="delete">删除</a></td><td><a href="/~/editNews_{id}" class="edit">修改</a></td></tr>'''.format(**n) for n in news]

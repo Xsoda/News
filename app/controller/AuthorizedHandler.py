@@ -16,7 +16,7 @@ class Login(BaseHandler):
         self.flush()
 
     def post(self):
-        user_name = self.get_argument("user_name", None)
+        user_name = self.PyStrEscape(self.get_argument("user_name", None))
         user_password = self.get_argument("user_password", None)
         if user_name and user_password:
             userinfo = self.db.get("select id, name, password, salt, grade, email from usr where name='%s';" % user_name.lower())
@@ -36,10 +36,10 @@ class Register(BaseHandler):
         self.flush()
         
     def post(self):
-        user_name = self.get_argument("user_name", None)
+        user_name = self.PyStrEscape(self.get_argument("user_name", None))
         user_password = self.get_argument("user_password", None)
         repeat_password = self.get_argument("repeat_password", None)
-        email = self.get_argument('email', None)
+        email = self.PyStrEscape(self.get_argument('email', None))
         if user_password == repeat_password:
             enc_pwd, salt = encrypt_password(user_password)
             if enc_pwd is not 'error':
@@ -58,7 +58,6 @@ class UserInfo(BaseHandler):
     def get(self):
         userinfo = self.get_current_user()
         if userinfo:
-            print(userinfo)
             grade = '<a href="/~/">后台管理</a>' if int(userinfo['grade']) else ''
             img = gravatar(userinfo['email'])
             html = '<img height="50" src="' + img + '" onerror="../static/image/default.png"></img>' + '{name} ' + grade + ' & <a href="/auth/edit">修改密码</a> & <a href="/auth/logout">注销</a>'
@@ -102,8 +101,8 @@ class ResetPassword(BaseHandler):
         self.flush()
         
     def post(self):
-        user_name = self.get_argument("user_name", None)
-        email = self.get_argument("email", None)
+        user_name = self.PyStrEscape(self.get_argument("user_name", None))
+        email = self.PyStrEscape(self.get_argument("email", None))
         if user_name and email:
             user = self.db.get("select * from usr where name=%s and email=%s;", *(user_name.lower(), email.lower()))
             if user:

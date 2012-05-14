@@ -10,6 +10,9 @@ import re
 
 class BaseHandler(tornado.web.RequestHandler):
 
+    def PyStrEscape(self, html):
+        return html.replace('"', '&quot;').replace("'", "&acute;")
+
     def JsEscape(self, html):
         pattern = re.compile(r"<\s*script(?:.|\s)*?(?:/\s*>|<\s*/script\s*>)")
         iterator = pattern.finditer(html)
