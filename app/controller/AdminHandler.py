@@ -5,6 +5,9 @@ import time
 import random
 import string
 from app.controller.Base import BaseHandler, admin
+from core.web.helpers import Gravatar
+
+gravatar = Gravatar(size=140, rating='g', default=None, force_default=False, force_lower=True)
 
 class Home(BaseHandler):
     
@@ -30,3 +33,11 @@ class ImgPost(BaseHandler):
             output_file.close()
             self.write("/static/uploads/" + final_fname)
         self.finish()
+
+class GetAdmin(BaseHandler):
+    @admin
+    def get(self):
+        self.write('<img height="50" src={gravatar} onerror="this.src=\'../static/image/default.png\'"'
+                   '></img>{name} & <a href="/auth/logout">注销</a>'.format(**{'gravatar': gravatar(self.current_user['email']),
+                                                                               'name': self.current_user['name']}))
+        

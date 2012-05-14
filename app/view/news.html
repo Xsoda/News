@@ -23,11 +23,17 @@ PPTM News
     0
     %endif
   </div>
+  
+  %if news['summary']:
+  <div class="box">
+    <strong><em>Summary:</em></strong>${news['summary']}
+  </div>
+  %endif
 
   <div class="box">
     ${news['content']}
   </div>
-
+  
   <div class="notice">
    <strong>
      %if news['commentnum']:

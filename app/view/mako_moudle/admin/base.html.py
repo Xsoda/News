@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 7
-_modified_time = 1336617757.89
+_modified_time = 1336961310.335
 _template_filename = 'app/view/admin/base.html'
 _template_uri = 'admin/base.html'
 _source_encoding = 'utf-8'
@@ -28,14 +28,14 @@ def render_body(context,**pageargs):
         
 
         # SOURCE LINE 17
-        __M_writer('\r\n                <script type="text/javascript">\r\n                        glow.ready(function(){\r\n                                new glow.widgets.Sortable(\r\n                                        \'#content .grid_5, #content .grid_6\',\r\n                                        {\r\n                                                draggableOptions : {\r\n                                                        handle : \'h2\'\r\n                                                }\r\n                                        }\r\n                                );\r\n                        });\r\n                </script>\r\n                <!--[if IE]><![endif]><![endif]-->\r\n        </head>\r\n        <body>\r\n\r\n          <h1 id="head">PPTM News 管理后台</h1>\r\n          ')
+        __M_writer('\r\n                <style type="text/css">\r\n                  #user_info{float:right;}\r\n                  #user_info a { text-decoration:none; }\r\n                </style>\r\n                <script type="text/javascript">\r\n                  $(document).ready(function(){\r\n                     $.get("/~/getAdmin", function(response){ $("#user_info").html(response); });\r\n                  });\r\n                        glow.ready(function(){\r\n                                new glow.widgets.Sortable(\r\n                                        \'#content .grid_5, #content .grid_6\',\r\n                                        {\r\n                                                draggableOptions : {\r\n                                                        handle : \'h2\'\r\n                                                }\r\n                                        }\r\n                                );\r\n                        });\r\n                </script>\r\n                <!--[if IE]><![endif]><![endif]-->\r\n        </head>\r\n        <body>\r\n\r\n          <h1 id="head">PPTM News 管理后台\r\n            <div id="user_info">\r\n            </div>\r\n          </h1>\r\n          ')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'navigation'):
             context['self'].navigation(**pageargs)
         
 
-        # SOURCE LINE 35
+        # SOURCE LINE 45
         __M_writer('\r\n            ')
-        # SOURCE LINE 36
+        # SOURCE LINE 46
         __M_writer(str(self.body()))
         __M_writer('\r\n        </body>\r\n</html>\r\n')
         return ''
