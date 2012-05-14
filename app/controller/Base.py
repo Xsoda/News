@@ -8,23 +8,6 @@ import markdown
 from docutils.core import publish_parts
 import re
 
-def authenticated(method):
-    def wrapper(self, *args, **kwargs):
-        if self.get_current_user():
-            return method(self, *args, **kwargs)
-        else:
-            self.redirect(self.get_login_url())
-    return wrapper
-
-def admin(method):
-    def wrapper(self, *args, **kwargs):
-        userinfo = self.get_current_user()
-        if userinfo and int(userinfo['grade']):
-            return method(self, *args, **kwargs)
-        else:
-            self.redirect(self.get_login_url())
-    return wrapper
-
 class BaseHandler(tornado.web.RequestHandler):
 
     def JsEscape(self, html):
@@ -40,7 +23,7 @@ class BaseHandler(tornado.web.RequestHandler):
             result.append(js)
             index = end + 1
         else:
-            html = ''.join(result)
+            html = ''.join(result) if result else html
         return html
     
     @property
@@ -124,3 +107,27 @@ class BaseHandler(tornado.web.RequestHandler):
                 print(line, "\n")
             print("%s: %s" % (str(traceback.error.__class__.__name__), traceback.error))
                   
+class authenticated(object):
+
+    def __init__(self, role):
+        self.role = role
+
+    def __call__(self, method):
+        def login_wrapper(_self, *args, **kwargs):
+            userinfo = _self.current_user
+            if userinfo:
+                return method(_self, *args, **kwargs)
+            return _self.redirect(_self.get_login_url())
+        
+        def admin_wrapper(_self, *args, **kwargs):
+            userinfo = _self.current_user
+            if userinfo and int(userinfo['grade']) == 1:
+                return method(_self, *args, **kwargs)
+            return _self.redirect(_self.get_login_url())
+
+        if self.role == "admin":
+            return admin_wrapper
+        elif self.role == "user":       # user 角色仅仅是简单的登录验证， 所以即使当前登录的是 admin 权限，也可以通过验证
+            return login_wrapper
+        else:
+            print("unkown role")
