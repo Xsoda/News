@@ -49,6 +49,16 @@ div#content {
     padding: 1em;
 }
 
+div#news img{
+    background-color: #EDEDED;
+    border: 1px solid #DBDBDB;
+    padding: 8px 8px 8px 8px;
+    margin: 0 0 5px 0;
+    clear: both;
+    max-width: 600px;
+    height: auto;
+}
+
 ul.menu_tabbed {
     list-style: none;
     border-bottom: 1px #999999 solid;
