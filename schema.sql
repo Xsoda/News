@@ -63,26 +63,26 @@ alter table comment add constraint fk_comment_news_1 foreign key (newsId) refere
 create index ix_comment_usr_1 on comment(authorId);
 create index ix_comment_news_1 on comment(newsId);
 
-create sequence tag_id_seq;
-create table tag( -- Tag
-       id bigint not null default nextval('tag_id_seq'), -- Id
-       name varchar(255) not null, -- Tag名
-       constraint pk_tag primary key (id)
-);
-alter sequence tag_id_seq owned by tag.id;
+-- create sequence tag_id_seq;
+-- create table tag( -- Tag
+--        id bigint not null default nextval('tag_id_seq'), -- Id
+--        name varchar(255) not null, -- Tag名
+--        constraint pk_tag primary key (id)
+-- );
+-- alter sequence tag_id_seq owned by tag.id;
 
-create sequence newstag_id_seq;
-create table newstag( -- Tag 与 News 的关系表 * to *
-       id bigint not null default nextval('newstag_id_seq'), -- Id
-       newsId bigint not null, -- 新闻编号
-       tagId bigint not null, -- Tag 编号
-       constraint pk_newstag primary key (id)
-);
-alter sequence newstag_id_seq owned by newstag.id;
-alter table newstag add constraint fk_newstag_news_1 foreign key (newsId) references news(id) on delete restrict on update restrict;
-alter table newstag add constraint fk_newstag_tag_1 foreign key (tagId) references tag(id) on delete restrict on update restrict;
-create index ix_newstag_news_1 on newstag(newsId);
-create index ix_newstag_tag_1 on newstag(tagId);
+-- create sequence newstag_id_seq;
+-- create table newstag( -- Tag 与 News 的关系表 * to *
+--        id bigint not null default nextval('newstag_id_seq'), -- Id
+--        newsId bigint not null, -- 新闻编号
+--        tagId bigint not null, -- Tag 编号
+--        constraint pk_newstag primary key (id)
+-- );
+-- alter sequence newstag_id_seq owned by newstag.id;
+-- alter table newstag add constraint fk_newstag_news_1 foreign key (newsId) references news(id) on delete restrict on update restrict;
+-- alter table newstag add constraint fk_newstag_tag_1 foreign key (tagId) references tag(id) on delete restrict on update restrict;
+-- create index ix_newstag_news_1 on newstag(newsId);
+-- create index ix_newstag_tag_1 on newstag(tagId);
 
 create or replace function delCategory(integer) returns void as $$
 declare
