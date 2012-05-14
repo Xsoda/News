@@ -97,14 +97,6 @@ Python模块依赖
 
   - 确定基本框架，以及以前已经写好的数据表
 
-TODO
-------------
-
-  - 用户修改密码
-  - 用户重置密码(未登录时)
-  - 新闻的搜索
-  - 新闻概要的显示
-
 .. _`Python 3.2.2`: http://python.org
 .. _`psycopg2 2.4.4`: http://initd.org/psycopg
 .. _`PostgreSql 9.1`: http://postgresql.org
