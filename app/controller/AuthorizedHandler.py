@@ -73,12 +73,12 @@ class Logout(BaseHandler):
         self.redirect("/")
 
 class EditPassword(BaseHandler):
-    @authenticated
+    @authenticated("user")
     def get(self):
         self.write(self.serve_template("editpwd.html", **{'xsrf': self.xsrf_form_html()}))
         self.flush()
         
-    @authenticated
+    @authenticated("user")
     def post(self):
         old_pwd = self.get_argument("old_password", None)
         user_pwd = self.get_argument("user_password", None)

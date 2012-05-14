@@ -1,6 +1,6 @@
 # *_* code: utf-8 *_*
 
-from app.controller.Base import BaseHandler, admin
+from app.controller.Base import BaseHandler, authenticated
 import time
 
 class ShowNews(BaseHandler):
@@ -13,20 +13,20 @@ class ShowNews(BaseHandler):
             self.write("get news fail. news id is %s." % id)
 
 class Preview(BaseHandler):
-    @admin
+    @authenticated("admin")
     def post(self):
         doc = self.get_argument('doc', None)
         content = self.get_argument('content', None)
         self.write(self.DocParise(doc, content))
 
 class AddNews(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self):
         category = self.db.query("select * from category where parentid=0;")
         self.write(self.serve_template("admin/addnews.html", **{'category': category, 'xsrf': self.xsrf_form_html()}))
         self.flush()
 
-    @admin
+    @authenticated("admin")
     def post(self):
         title = self.get_argument('title', None)
         categoryid = self.get_argument('category', None)
@@ -41,13 +41,13 @@ class AddNews(BaseHandler):
         self.flush()
 
 class EditNews(BaseHandler):
-   @admin
+   @authenticated("admin")
    def get(self, id):
        news = self.db.get("select * from news where id=%s;", *(id,))
        category = self.db.query("select * from category;")
        self.write(self.serve_template("admin/editNews.html", **{'news': news, 'category': category, 'xsrf':self.xsrf_form_html()}))
        
-   @admin
+   @authenticated("admin")
    def post(self, id):
        title = self.get_argument('title', None)
        categoryid = self.get_argument('category', None)
@@ -62,7 +62,7 @@ class EditNews(BaseHandler):
        self.finish()
 
 class DelNews(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self, id):
         self.db.execute("delete from comment where newsid=%s;", *(id,))
         if self.db.execute_rowcount("delete from news where id=%s;", *(id,)):
@@ -71,7 +71,7 @@ class DelNews(BaseHandler):
             self.write("undone")
         
 class NewsList(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self, id):
         news = self.db.query("select news.id, usr.name as author, postedat, news.title from news left join usr on news.author=usr.id where categoryid=%s", *(id,))
         if news:
@@ -88,7 +88,7 @@ class SearchNews(BaseHandler):
         self.write(self.serve_template("index.html", **{'newses': news, 'position': '搜索结果', 'xsrf': self.xsrf_form_html()}))
 
 class AdminSearch(BaseHandler):
-    @admin
+    @authenticated("admin")
     def post(self):
         keyword = self.get_argument("keyword", None)
         news = self.db.query("select * from searchNews('search', %s);fetch all from search;", *(keyword,))

@@ -4,14 +4,14 @@ __author__ = 'Xsoda'
 import time
 import random
 import string
-from app.controller.Base import BaseHandler, admin
+from app.controller.Base import BaseHandler, authenticated
 from core.web.helpers import Gravatar
 
 gravatar = Gravatar(size=140, rating='g', default=None, force_default=False, force_lower=True)
 
 class Home(BaseHandler):
     
-    @admin
+    @authenticated("admin")
     def get(self):
         category = self.db.query("select * from category;")
         self.write(self.serve_template("admin/news.html", **{'category': category, 'xsrf': self.xsrf_form_html()}))
@@ -22,7 +22,7 @@ class ImgPost(BaseHandler):
     def check_xsrf_cookie(self):        # 当上传图片时禁用 xsrf
         pass
     
-    @admin
+    @authenticated("admin")
     def post(self):
         if self.request.files:
             f =  self.request.files['myfile'][0]
@@ -35,7 +35,7 @@ class ImgPost(BaseHandler):
         self.finish()
 
 class GetAdmin(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self):
         self.write('<img height="50" src={gravatar} onerror="this.src=\'../static/image/default.png\'"'
                    '></img>{name} & <a href="/auth/logout">注销</a>'.format(**{'gravatar': gravatar(self.current_user['email']),

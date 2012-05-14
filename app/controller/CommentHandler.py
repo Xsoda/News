@@ -1,7 +1,7 @@
 # *_* coding: utf-8 *_*
 __author__ = 'Xsoda'
 
-from app.controller.Base import BaseHandler, authenticated, admin
+from app.controller.Base import BaseHandler, authenticated
 import time
 from core.web.helpers import Gravatar
 gravatar = Gravatar(size=140, rating='g', default=None, force_default=False, force_lower=True)
@@ -68,7 +68,7 @@ class ShowComments(BaseHandler):
 
 class AddComment(BaseHandler):
 
-    @authenticated
+    @authenticated('user')
     def post(self):
         news_id = self.get_argument('comment_post_id')
         parent_id = self.get_argument('comment_parent')
@@ -82,7 +82,7 @@ class AddComment(BaseHandler):
         self.finish()
         
 class DelComment(BaseHandler):
-    @admin
+    @authenticated('admin')
     def get(self, id):
         self.db.execute("update comment set commentid=(select commentid from comment where id=%s) where commentid=%s", *(id,id))
         if self.db.execute_rowcount("update news set commentnum = commentnum - 1 where id= (select newsid from comment where id=%s);", *(id,)):

@@ -1,7 +1,7 @@
 # *_* coding: utf-8 *_*
 
 from app.controller.Base import BaseHandler
-from app.controller.Base import admin
+from app.controller.Base import authenticated
 
 class GetCategory(BaseHandler):
     def get(self, selected):
@@ -27,7 +27,7 @@ class CategoryNews(BaseHandler):
             self.write(self.serve_template("newslist.html", **{'newses': None, 'position': category['name'], 'newses': None, 'pages': None, 'page': None, 'categoryid': id}))
 
 class AddCategory(BaseHandler):
-    @admin
+    @authenticated("admin")
     def post(self):
         name = self.get_argument("category_name", None)
         if name:
@@ -39,13 +39,13 @@ class AddCategory(BaseHandler):
             self.write("undone")
             
 class DelCategory(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self, id):
         self.db.execute("select * from delCategory(%s);", *(id,))
         self.write("done")
     
 class EditCategory(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self, id):
         category = self.db.get("select * from category where id=%s;", *(id,))
         category['xsrf'] = self.xsrf_form_html()
@@ -61,7 +61,7 @@ class EditCategory(BaseHandler):
         '''.format(**category)
         self.write(html)
         
-    @admin
+    @authenticated("admin")
     def post(self, id):
         category_id = self.get_argument("category_id")
         category_name = self.get_argument("category_name")
@@ -71,7 +71,7 @@ class EditCategory(BaseHandler):
             self.write("undone")
             
 class AdminCategory(BaseHandler):
-    @admin
+    @authenticated("admin")
     def get(self):
         category = self.db.query("select * from category order by id asc;")
         self.write(self.serve_template("admin/category.html", **{'category': category, 'xsrf': self.xsrf_form_html()}))
