@@ -10,6 +10,9 @@ import re
 
 class BaseHandler(tornado.web.RequestHandler):
 
+    def PyStrEscape(self, html):
+        return html.replace('"', '&quot;').replace("'", "&acute;")
+
     def JsEscape(self, html):
         pattern = re.compile(r"<\s*script(?:.|\s)*?(?:/\s*>|<\s*/script\s*>)")
         iterator = pattern.finditer(html)
@@ -45,6 +48,7 @@ class BaseHandler(tornado.web.RequestHandler):
         return publish_parts(rst, writer_name="html")['body']
 
     def DocParise(self, doc, source):
+        source = "该新闻没有任何内容\n=========================\n该新闻没有任何内容" if source is None else source
         if doc == 'html':
             return source
         elif doc == 'Markdown':
