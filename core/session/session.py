@@ -52,12 +52,12 @@ class RedisSession:
         self._store.set_session(
             self._sessionid,
             'last_access',
-            pickle.dumps(access_info)
+            serialize(access_info)
             )
 
     def last_access(self):
         access_info = self._store.get_session(self.sessionid, 'last_access')
-        return pickle.loads(access_info)
+        return deserialize(access_info)
 
     @property
     def sessionid(self):
@@ -122,7 +122,7 @@ class Session(object):
         """
         """
         value = self.get_session(self.name)
-        self._data = pickle.loads(value) if value else {}
+        self._data = deserialize(value) if value else {}
 
     def set_expires(self, days):
         """
@@ -152,7 +152,7 @@ class Session(object):
 
     def save(self):
         if self._dirty:
-            self.set_session(self.name, pickle.dumps(self._data), expires_days=self._expiry)
+            self.set_session(self.name, serialize(self._data), expires_days=self._expiry)
             self._dirty=False
       
     
