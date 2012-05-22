@@ -1,4 +1,4 @@
-# git ignore file
-*.pyc
+﻿# git ignore file
+*.py[cod]
 *.html.py
 app/static/uploads/*.*

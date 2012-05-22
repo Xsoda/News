@@ -23,6 +23,14 @@
       else{displayMessage("用户权限修改失败");}
     });
   }
+  function deleteUser(obj) {
+   var url = obj.attr("href");
+  obj.attr("href", "#")
+  $.get(url, function(response){
+      if (response == "done") { displayMessage("删除用户成功"); }
+      else { displayMessage("删除用户失败"); }
+  });
+  }
 </script>
 </%block>
 
@@ -100,7 +108,7 @@
             %endif
           </td>
           <td><a class="fancybox edit" href="#userform" id="editUser_${user['id']}" title="用户权限修改">编辑</a></td>
-          <td><a href="/~/delUser_${user['id']}" class="delete">删除</a></td>
+          <td><a href="/~/delUser_${user['id']}" class="delete" onclick="javascript:deleteUser($(this));">删除</a></td>
         </tr>
         <%
            flag = ~flag
