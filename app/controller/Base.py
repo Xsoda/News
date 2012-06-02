@@ -129,9 +129,5 @@ class authenticated(object):
                 return method(_self, *args, **kwargs)
             return _self.redirect(_self.get_login_url())
 
-        if self.role == "admin":
-            return admin_wrapper
-        elif self.role == "user":       # user 角色仅仅是简单的登录验证， 所以即使当前登录的是 admin 权限，也可以通过验证
-            return login_wrapper
-        else:
-            print("unkown role")
+        wrapper = dict(admin=admin_wrapper, user=login_wrapper)
+        return wrapper[self.role]
