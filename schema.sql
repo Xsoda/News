@@ -1,6 +1,6 @@
 -- Up!
 create sequence usr_id_seq start 1;
-create table usr( -- 用户表
+create table usr( -- 用户表 
        id bigint not null default nextval('usr_id_seq'), -- Id
        name varchar(255) not null, -- 用户名
        password varchar(255) not null, -- 密码（sha256加密）
